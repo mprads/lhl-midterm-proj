@@ -1,0 +1,25 @@
+{
+  "name": "food-order",
+  "version": "1.0.0",
+  "description": "lhl mid-term project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mprads/lhl-midterm-proj.git"
+  },
+  "author": "arman, erica, hoon and myles",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mprads/lhl-midterm-proj/issues"
+  },
+  "homepage": "https://github.com/mprads/lhl-midterm-proj#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "pg": "^6.1.2"
+  }
+}
