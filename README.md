@@ -1,1 +1,0 @@
-# lhl-midterm-proj
