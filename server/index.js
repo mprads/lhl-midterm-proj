@@ -13,7 +13,66 @@ app.use(cookieSession( {
   maxAge: 24 * 60 * 60 * 1000
 }));
 
+app.get('/register', (request, response) => {
+  response.redirect('/register');
+});
 
+app.get('/checkout', (request, response) => {
+  response.render('/checkout');
+});
+
+app.get('/status', (request, response) => {
+  response.redirect('/status');
+});
+
+app.post('carts', (request, response) => {
+// creates order id row and adds order-id to cookie
+});
+
+// Ajax post to add items to cart
+function renderCart(items) {
+    item.forEach(items => {
+      $("#cart").prepend(createItem(item));
+    });
+  }
+
+function loadItems () {
+    $.ajax({
+      method: "GET",
+      url: "/carts"
+    }).then((respose) => {
+      $("#cart").empty();
+      renderCart(respose)
+    });
+  }
+
+  $("menu").on("submit", (event) => {
+    event.preventDefault();
+    // if item doesnt exist
+    $.ajax({
+      method: "POST",
+      url: "/carts",
+      data: data
+    })
+    loadItems();
+    // if item does exist
+    $.ajax({
+      method: "PUT",
+      url: "/carts",
+      data: data
+    })
+    loadItems();
+  });
+
+  $("delete-from-cart").on("submit", (event) => {
+    event.preventDefault();
+    $.ajax({
+      method: "DELETE",
+      url: "/carts",
+      data: data
+    })
+    loadItems();
+  });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
