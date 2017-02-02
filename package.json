@@ -5,7 +5,9 @@
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "knex": "./node_modules/.bin/knex"
+    "knex": "./node_modules/.bin/knex",
+    "start": "node server/index.js",
+    "local": "./node_modules/.bin/nodemon --watch server -e js server/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.1",
     "knex": "^0.12.6",
+    "nodemon": "^1.11.0",
     "pg": "^6.1.2"
   }
 }
