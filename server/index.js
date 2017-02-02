@@ -25,26 +25,10 @@ app.get('/status', (request, response) => {
   response.redirect('/status');
 });
 
-app.post('carts', (request, response) => {
+$("create-order").on("submit", (event) => {
+    event.preventDefault();
 // creates order id row and adds order-id to cookie
-});
-
-// Ajax post to add items to cart
-function renderCart(items) {
-    item.forEach(items => {
-      $("#cart").prepend(createItem(item));
-    });
-  }
-
-function loadItems () {
-    $.ajax({
-      method: "GET",
-      url: "/carts"
-    }).then((respose) => {
-      $("#cart").empty();
-      renderCart(respose)
-    });
-  }
+  });
 
   $("menu").on("submit", (event) => {
     event.preventDefault();
@@ -73,6 +57,24 @@ function loadItems () {
     })
     loadItems();
   });
+
+// Ajax post to add items to cart
+function renderCart(items) {
+    item.forEach(items => {
+      $("#cart").prepend(createItem(item));
+    });
+  }
+
+function loadItems () {
+    $.ajax({
+      method: "GET",
+      url: "/carts"
+    }).then((respose) => {
+      $("#cart").empty();
+      renderCart(respose)
+    });
+  }
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
