@@ -59,11 +59,10 @@ exports.down = function(knex, Promise) {
     knex.schema.table('items', function (table) {
       table.dropColumn('food_type_id');
     }),
-
-    knex.schema.dropTable('statuses'), // 1
-    knex.schema.dropTable('line_items'), //2
-    knex.schema.dropTable('orders'), //3
-    knex.schema.dropTable('items'), // //4
+    knex.schema.dropTable('statuses'),
+    knex.schema.dropTable('line_items'),
+    knex.schema.dropTable('orders'),
+    knex.schema.dropTable('items'),
     knex.schema.dropTable('food_types')
   ])
 
