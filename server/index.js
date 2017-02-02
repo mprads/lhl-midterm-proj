@@ -5,13 +5,16 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieSession( {
   name: 'session',
   keys: ['secret'],
   maxAge: 24 * 60 * 60 * 1000
 }));
+
+app.get('/', (request, response) => {
+  response.render('index');
+});
 
 app.get('/register', (request, response) => {
   response.render('/register');
@@ -29,6 +32,7 @@ app.get('/checkout', (request, response) => {
 app.post('/checkout', (request, response) => {
   response.redirct('/status');
 });
+
 
 app.get('/status', (request, response) => {
   response.render('/status');
