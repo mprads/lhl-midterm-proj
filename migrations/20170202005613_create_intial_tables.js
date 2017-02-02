@@ -49,11 +49,22 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.schema.dropTable('food_types'),
-    knex.schema.dropTable('items'),
-    knex.schema.dropTable('statuses'),
-    knex.schema.dropTable('orders'),
-    knex.schema.dropTable('line_items')
+
+    knex.schema.table('line_items', function (table) {
+      table.dropColumns('item_id', 'order_id');
+    }),
+    knex.schema.table('orders', function (table) {
+      table.dropColumn('status_id');
+    }),
+    knex.schema.table('items', function (table) {
+      table.dropColumn('food_type_id');
+    }),
+
+    knex.schema.dropTable('statuses'), // 1
+    knex.schema.dropTable('line_items'), //2
+    knex.schema.dropTable('orders'), //3
+    knex.schema.dropTable('items'), // //4
+    knex.schema.dropTable('food_types')
   ])
 
 };
