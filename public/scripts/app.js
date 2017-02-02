@@ -1,5 +1,10 @@
 $(() => {
 
+  $("confirm-order").on("submit", (event) => {
+    // twillio magic
+    // set order status to new
+  });
+
   $("create-order").on("submit", (event) => {
       event.preventDefault();
   // creates order id row and adds order-id to cookie
@@ -36,7 +41,7 @@ $(() => {
   // Ajax post to add items to cart
   function renderItems(items) {
     item.forEach(items => {
-      $("#cart").prepend(createItem(item));
+      $("#cart").append(createItem(item));
     });
   }
 
