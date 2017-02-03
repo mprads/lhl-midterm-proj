@@ -54,18 +54,25 @@ app.get('/', (request, response) => {
     });
 });
 
-// app.get('/register', (request, response) => {
-//   response.redirect('register');
-// });
-
-app.get('/checkout', (request, response) => {
-  response.render('checkout');
-
-});
-
 app.get('/register', (request, response) => {
   response.render('register');
 });
+
+app.get('/checkout', (request, response) => {
+  knex('orders')
+  .join('line_items', 'orders.id', 'line_items.order_id')
+  .join('items', 'line_items.item_id', 'items.id')
+  .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
+  .where('orders.id', 1)
+  .then((data) => {
+    console.log(data);
+    response.render('checkout', {data: data});
+    })
+  .catch(ex => {
+      res.status(500).json(ex);
+  });
+});
+
 
 app.post('/register/addcust', (request, response) => {
   // Add name and phone number input fields into order table

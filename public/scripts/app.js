@@ -17,6 +17,14 @@ $(() => {
     makeCall(order.cus_name, order);
   });
 
+  (function(){
+
+  $("#cart").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
+  });
+
+})();
+
   $("create-order").on("submit", (event) => {
       event.preventDefault();
   // creates order id row and adds order-id to cookie
