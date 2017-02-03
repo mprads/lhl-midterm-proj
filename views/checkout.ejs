@@ -18,24 +18,24 @@
 
   <div class="container-fluid">
     <div class="row">
-      <h4 class="col-sm-6"><%=data[0].cus_name%></h4>
-      <h4 class="col-sm-6"><%=data[0].phone%></h4>
+      <h4 class="col-sm-6 text-center"><%=data[0].cus_name%></h4>
+      <h4 class="col-sm-6 text-center"><%=data[0].phone%></h4>
     </div>
     <table id="invoice" class="table table-striped">
     <colgroup span="4"></colgroup>
       <tr class ="column">
-        <th>Item Name</th>
-        <th>Quantity</th>
-        <th>Unit Price</th>
-        <th>Amount</th>
+        <th class="text-center">Item Name</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Unit Price</th>
+        <th class="text-center">Amount</th>
       </tr>
         <%for(let i = 0; i < data.length; i++) {
         const choice = data[i];%>
       <tr>
         <td><%=choice.name%></td>
-        <td><%=choice.quantity%></td>
-        <td><%=choice.price%></td>
-        <td>SUM</td>
+        <td class="text-center"><%=choice.quantity%></td>
+        <td class="text-center"><%=choice.price%></td>
+        <td class="text-center">SUM</td>
       </tr>
       <%}%>
       <tr>
@@ -47,35 +47,35 @@
       <tr>
         <td></td>
         <td></td>
-        <td>Subtotal</td>
-        <td>SUM</td>
+        <td class="text-center">Subtotal</td>
+        <td class="text-center">SUM</td>
       </tr>
       <tr>
         <td></td>
         <td></td>
-        <td>Tax</td>
-        <td>SUM</td>
+        <td class="text-center">Tax</td>
+        <td class="text-center">SUM</td>
       </tr>
       <tr>
         <td></td>
         <td></td>
-        <td>Total</td>
-        <td>SUM</td>
+        <td class="text-center">Total</td>
+        <td class="text-center">SUM</td>
       </tr>
     </table>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-8">
+<!--         <div class="col-sm-8">
           <p> </p>
-        </div>
-        <div class="col-sm-3 pull-right">
+        </div> -->
+        <div class="col-sm-12 pull-right">
           <form action="/neworder" method="post">
-            <button>Confirm Order</button>
+            <button class="pull-right">Confirm Order</button>
           </form>
         </div>
-        <div class="col-sm-1">
+<!--         <div class="col-sm-1">
           <p> </p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

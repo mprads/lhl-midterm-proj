@@ -3,42 +3,54 @@
 <head>
 
   <title>Order For Pick Up</title>
-  <link rel="stylesheet" href="../vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
   <link rel="stylesheet" href="/styles/layout.css">
-  <script type="text/javascript" src="../scripts/app.js"></script>
+  <link rel="stylesheet" href="/styles/nav_bar.css">
+
 </head>
 <body>
+<!-- Top nav bar follows this line -->
   <header>
     <% include partials/_header.ejs %>
   </header>
 <body>
+<!-- Menu items here -->
 
   <main id="menu">
-    <% for (let type_id in food_types) { %>
-    <section class="food-groups">
-      <% for(let e = 0; e < 1; e ++) {%>
-        <h1><%=food_types[type_id][e].type_name%></h1>
-      <%}%>
-      <%for(let i = 0; i < food_types[type_id].length; i++) {
-        const food = food_types[type_id][i];%>
-        <form action="/menu" method="post">
-          <section class="options">
-            <span class="food-name"><%=food.name%></span>
-            <span class="food-desc"><%=food.description%></span>
-            <span class="food-price"><%=food.price%></span>
-          </section>
-        </form>
-      <%} %>
-    </section>
-  <% } %>
+    <% for(let type_id in food_types) { %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2"></div>
+            <div class="jumbotron">
+            <div class="col-md-8">
+              <section class="food-groups">
+                <% for(let e = 0; e < 1; e ++) {%>
+                  <h1><%=food_types[type_id][e].type_name%></h1>
+                <%}%>
+                <%for(let i = 0; i < food_types[type_id].length; i++) {
+                  const food = food_types[type_id][i];%>
+                  <form action="/menu" method="post">
+                    <section class="options">
+                      <span class="food-name"><%=food.name%></span>
+                      <span class="food-desc"><%=food.description%></span>
+                      <span class="food-price"><%=food.price%></span>
+                    </section>
+                  </form>
+                <%} %>
+              </section>
+              </div>
+            <div class="col-md-2"></div>
+        </div>
+      </div>
+    <% } %>
 
   </main>
 
-<script type="text/javascript" src="../vendor/jquery-3.0.0.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/nav_bar.js"></script>
 </body>
 </html>
