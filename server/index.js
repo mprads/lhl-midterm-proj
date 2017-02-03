@@ -6,11 +6,31 @@ const ENV = process.env.ENV || "development";
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const sass = require("node-sass-middleware");
+const path = require("path");
 
 const knexConfig = require("../knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger  = require('knex-logger');
+
+app.use(morgan('dev'));
+app.use(knexLogger(knex));
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/styles", sass({
+  src: path.join(__dirname, "../styles"),
+  dest: path.join(__dirname, "../public/styles"),
+  debug: true,
+  outputStyle: 'expanded'
+}));
+
+app.use(express.static("public"));
+
+app.use(cookieSession( {
+  name: 'session',
+  keys: ['secret'],
+  maxAge: 24 * 60 * 60 * 1000
+}));
 
 function groupBy(data, column) {
   return data.reduce((acc, i) => {
@@ -21,34 +41,13 @@ function groupBy(data, column) {
     return acc; // return accumulator for the next iteration of reduce // mandatory
   }, {});
 }
-
-app.use(morgan('dev'));
-app.use(knexLogger(knex));
-app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
-  debug: true,
-  outputStyle: 'expanded'
-}));
-app.use(express.static("public"));
-
-
-app.use(cookieSession( {
-  name: 'session',
-  keys: ['secret'],
-  maxAge: 24 * 60 * 60 * 1000
-}));
-
 app.get('/', (request, response) => {
     knex('items')
-    .select('name', 'description', 'price', 'food_type_id')
+    .join('food_types', 'items.food_type_id', 'food_types.id')
+    .select('items.name', 'items.description', 'items.price', 'items.food_type_id', 'food_types.name as type_name')
     .then((data) => {
-      console.log(data);
       const grouped = groupBy(data, 'food_type_id');
-      console.log(grouped);
-      response.render('index', { food_types: grouped });
+      response.render('index', { food_types: grouped});
     })
     .catch(ex => {
       res.status(500).json(ex);

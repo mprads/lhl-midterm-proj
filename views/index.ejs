@@ -7,35 +7,64 @@
   <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
   <!-- Import Bootstrap API-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles/layout.css">
   <script type="text/javascript" src="../vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="../scripts/app.js"></script>
 </head>
 <body>
 <!-- Top nav bar follows this line -->
-<header>
- <% include partials/_header.ejs %>
-</header>
-
+  <header>
+    <% include partials/_header.ejs %>
+  </header>
+<body>
 <!-- Menu items here -->
   <main id="menu">
-      <form action="/menu" method="post">
-        <% for(var type_id in food_types) { %>
-          <section class="">
-            <%=  %>
-            <%
-               for(var i = 0; i < food_types[type_id].length; i++) {
-               var food = food_types[type_id][i].name;
-            %>
-              <p><%=food_types[type_id][i].name%></p>
-              <p><%=food_types[type_id][i].description%></p>
-              <p><%=food_types[type_id][i].price%></p>
-
-            <%} %>
+    <% for(let type_id in food_types) { %>
+    <section class="food-groups">
+      <% for(let e = 0; e < 1; e ++) {%>
+        <h1><%=food_types[type_id][e].type_name%></h1>
+      <%}%>
+      <%for(let i = 0; i < food_types[type_id].length; i++) {
+        const food = food_types[type_id][i];%>
+        <form action="/menu" method="post">
+          <section class="options">
+            <span class="food-name"><%=food.name%></span>
+            <span class="food-desc"><%=food.description%></span>
+            <span class="food-price"><%=food.price%></span>
           </section>
-        <% } %>
+        </form>
+      <%} %>
+    </section>
+  <% } %>
         <!-- <section class="appy">Greets
           <p>
           </p>
+    <form action="/cart" method="post">
+      <section class="appy">Greets
+        <p>food name</p><input type="text">
+      </section>
+      <section class="main">Eats
+        <p>food name</p><input type="text">
+      </section>
+      <section class="dessert">Treats
+        <p>food name</p><input type="text">
+      </section>
+      <section class="drink">Sips
+        <p>drink name</p><input type="text">
+      </section>
+    </form>
+  </main>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">.col-md-1</div>
+      <div class="col-md-6">.col-md-1</div>
+      <div class="col-md-2">.col-md-1</div>
+
+       <form action="/cart" method="post">
+        <section class="appys">Greets
+          <p>food name</p><input type="text">
         </section>
         <section class="main">Eats
           <p>food name</p>
@@ -46,8 +75,9 @@
         <section class="drink">Sips
           <p>drink name</p><input type="text">
         </section> -->
-      </form>
-  </main>
 
+  </main>
+    </div>
+  </div>
 </body>
 </html>
