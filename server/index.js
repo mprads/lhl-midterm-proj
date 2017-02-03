@@ -23,6 +23,8 @@ app.get('/register', (request, response) => {
 app.post('/register/addcust', (request, response) => {
   // Add name and phone number input fields into order table
   response.redirect('checkout');
+  return;
+
 });
 
 app.get('/checkout', (request, response) => {
@@ -31,6 +33,7 @@ app.get('/checkout', (request, response) => {
 
 app.post('/checkout', (request, response) => {
   response.redirct('status');
+  return;
 });
 
 app.get('/status', (request, response) => {
