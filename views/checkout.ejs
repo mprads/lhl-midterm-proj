@@ -3,67 +3,98 @@
 <head>
   <title>Customer Checkout</title>
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="../vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
+  <!-- Import Bootstrap API-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css">
+  <script type="text/javascript" src="../vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="../scripts/app.js"></script>
+
 </head>
+
 <body>
+
 <% include partials/_header.ejs %>
 
-  <h1>Customer Name</h1><h1>Customer Phone Number</h1>
-  <table id="invoice">
-  <colgroup span="4"></colgroup>
-    <tr class ="column">
-      <th>Your eats</th>
-      <th>Quantity</th>
-      <th>Dollas</th>
-      <th>Pay up</th>
-    </tr>
-    <tr>
-      <td>Waffle</td>
-      <td>80</td>
-      <td>$.89</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Chicken</td>
-      <td>92</td>
-      <td>$5</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Waffle Chicken</td>
-      <td>0</td>
-      <td>$2</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Chicken Waffle</td>
-      <td>0</td>
-      <td>$2.01</td>
-      <td>SUM</td>
-    </tr>
-  </table>
-  <form action="/neworder" method="post">
-    <button>Confirm Order</button>
-  </form>
-  <table>
-  <colgroup span="4"></colgroup>
-    <tr>
-      <td>Subtotal</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Tax</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Total </td>
-      <td>SUM</td>
-    </tr>
-  </table>
+  <div class="container-fluid">
+    <div class="row">
+      <h4 class="col-sm-6">Customer Name</h4>
+      <h4 class="col-sm-6">Customer Phone Number</h4>
+    </div>
+    <table id="invoice" class="table table-striped">
+    <colgroup span="4"></colgroup>
+      <tr class ="column">
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Amount</th>
+      </tr>
+      <tr>
+        <td>Waffle</td>
+        <td>80</td>
+        <td>0.89</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td>Chicken</td>
+        <td>92</td>
+        <td>5.00</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td>Waffle Chicken</td>
+        <td>0</td>
+        <td>2.00</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td>Chicken Waffle</td>
+        <td>0</td>
+        <td>$2.01</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Subtotal</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Tax</td>
+        <td>SUM</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td>SUM</td>
+      </tr>
+    </table>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-8">
+          <p> </p>
+        </div>
+        <div class="col-sm-3 pull-right">
+          <form action="/neworder" method="post">
+            <button>Confirm Order</button>
+          </form>
+        </div>
+        <div class="col-sm-1">
+          <p> </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
