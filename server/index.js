@@ -36,11 +36,11 @@ app.get('/', (request, response) => {
 });
 
 app.get('/register', (request, response) => {
-  response.redirect('/register');
+  response.redirect('register');
 });
 
 app.get('/checkout', (request, response) => {
-  response.render('/checkout');
+  response.render('checkout');
 
 });
 
