@@ -6,22 +6,24 @@ const ENV = process.env.ENV || "development";
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const sass = require("node-sass-middleware");
+const path = require("path");
 
 const knexConfig = require("../knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger  = require('knex-logger');
-
+console.log(__dirname);
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
-  src: __dirname + "/styles",
-  dest: __dirname + "/public/styles",
+  src: path.join(__dirname, "../styles"),
+  dest: path.join(__dirname, "../public/styles"),
   debug: true,
   outputStyle: 'expanded'
 }));
+//console.log(path.join(__dirname, "../public"));
 app.use(express.static("public"));
 
 app.use(cookieSession( {
