@@ -12,16 +12,17 @@
 <body>
 <!-- Top nav bar follows this line -->
   <header>
-    <% include partials/_header.ejs %>
+    <!-- <% include partials/_header.ejs %> -->
   </header>
 <body>
 <!-- Menu items here -->
 
   <main id="menu">
     <% for(let type_id in food_types) { %>
-      <div class="jumbotron">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-2"></div>
+            <div class="jumbotron">
             <div class="col-md-8">
               <section class="food-groups">
                 <% for(let e = 0; e < 1; e ++) {%>
@@ -38,8 +39,8 @@
                   </form>
                 <%} %>
               </section>
-              <div class="col-md-2"></div>
-            </div>
+              </div>
+            <div class="col-md-2"></div>
         </div>
       </div>
     <% } %>
