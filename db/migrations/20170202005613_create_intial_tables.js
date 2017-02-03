@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       table.increments('id').primary();
       table.string('name');
       table.string('description');
-      table.decimal('price',2); // check the data type - round
+      table.decimal('price',7, 2); // check the data type - round
       table.integer('food_type_id').unsigned();
       table.foreign('food_type_id').references('food_types.id');
     }),
@@ -29,7 +29,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('orders', function(table){
       table.increments('id').primary();
       table.string('cus_name');
-      table.integer('phone');
+      table.string('phone');
       table.integer('status_id').unsigned();
       table.foreign('status_id').references('statuses.id');
     }),

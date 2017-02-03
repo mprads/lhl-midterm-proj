@@ -32,6 +32,16 @@ app.use(cookieSession( {
 
 app.get('/', (request, response) => {
   response.render('index');
+
+});
+
+app.get('/register', (request, response) => {
+  response.redirect('/register');
+});
+
+app.get('/checkout', (request, response) => {
+  response.render('/checkout');
+
 });
 
 app.get('/register', (request, response) => {
@@ -42,6 +52,7 @@ app.post('/register/addcust', (request, response) => {
   // Add name and phone number input fields into order table
   response.redirect('checkout');
   return;
+
 });
 
 app.get('/checkout', (request, response) => {
