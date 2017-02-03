@@ -14,6 +14,16 @@ app.use(cookieSession( {
 
 app.get('/', (request, response) => {
   response.render('index');
+
+});
+
+app.get('/register', (request, response) => {
+  response.redirect('/register');
+});
+
+app.get('/checkout', (request, response) => {
+  response.render('/checkout');
+
 });
 
 app.get('/register', (request, response) => {

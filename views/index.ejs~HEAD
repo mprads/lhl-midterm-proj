@@ -11,6 +11,7 @@
 </head>
 <body>
 <!-- Top nav bar follows this line -->
+<% include partials/_header.ejs %>
 
 <!-- Menu items here -->
   <main id="menu">
@@ -29,5 +30,8 @@
         </section>
       </form>
   </main>
+
+<!-- Footer partial here -->
+
 </body>
 </html>
