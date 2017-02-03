@@ -10,41 +10,21 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
 </head>
 <body>
-<% include partials/_header.ejs %>
+<!-- <% include partials/_header.ejs %> -->
 
-  <h1>Customer Name</h1><h1>Customer Phone Number</h1>
+      <h1><%=data[0].cus_name%></h1>
+      <h1><%=data[0].phone%></h1>
+
   <table id="invoice">
+      <%for(let i = 0; i < data.length; i++) {
+        const choice = data[i];%>
   <colgroup span="4"></colgroup>
     <tr class ="column">
-      <th>Your eats</th>
-      <th>Quantity</th>
-      <th>Dollas</th>
-      <th>Pay up</th>
+      <span class="choice-name"><%=choice.name%></span>
+      <span class="choice-desc"><%=choice.quantity%></span>
+      <span class="choice-price"><%=choice.price%></span>
     </tr>
-    <tr>
-      <td>Waffle</td>
-      <td>80</td>
-      <td>$.89</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Chicken</td>
-      <td>92</td>
-      <td>$5</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Waffle Chicken</td>
-      <td>0</td>
-      <td>$2</td>
-      <td>SUM</td>
-    </tr>
-    <tr>
-      <td>Chicken Waffle</td>
-      <td>0</td>
-      <td>$2.01</td>
-      <td>SUM</td>
-    </tr>
+      <%}%>
   </table>
   <form action="/neworder" method="post">
     <button>Confirm Order</button>
