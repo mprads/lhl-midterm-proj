@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Register Your Info</title>
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -10,6 +10,31 @@
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
 </head>
 <body>
-alksnas
+  <main role="main" class="container">
+  <h1>Register Your Info</h1>
+  <form method="post" action ="/register/addcust" class="form-horizontal">
+    <div class="form-group">
+    <label for="username-field" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="username-field" value="Full Name" name="Your Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phone-field" class="col-sm-2 col-form-label">Phone Number</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="phone-field" value="gimme yo digits" type="tel" name="Phone Number">
+        </div>
+        </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button class="btn btn-primary pull-right">Checkout</button>
+          </div>
+        </div>
+      </form>
+    </main>
 </body>
 </html>
+
+<!-- <label for="example-tel-input" class="col-2 col-form-label">Telephone</label>
+  <div class="col-10">
+    <input class="form-control" type="tel" value="1-(555)-555-5555" id="example-tel-input"> -->
