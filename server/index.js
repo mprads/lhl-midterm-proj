@@ -22,7 +22,7 @@ app.get('/register', (request, response) => {
 
 app.post('/register/addcust', (request, response) => {
   // Add name and phone number input fields into order table
-  response.redirect('checkout');
+  response.redirect('/checkout');
 });
 
 app.get('/checkout', (request, response) => {
@@ -30,7 +30,7 @@ app.get('/checkout', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-  response.redirct('status');
+  response.redirect('/status');
 });
 
 app.get('/status', (request, response) => {
