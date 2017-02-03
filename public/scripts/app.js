@@ -1,13 +1,5 @@
 $(() => {
 
-    // const appsMenu = knex.SELECT('name', 'description', 'price').FROM('items').WHERE()
-    // const mainsMenu = knex.SELECT(*).FROM("items")
-    // const drinksMenu = knex.SELECT(*).FROM("items")
-    // const dessertsMenu = knex.SELECT(*).FROM("items")
-    // const appsMenu = knex('items').where({
-    //   food_type_id: '1'
-    //   }).select('name', 'description', 'price');
-
   $("confirm-order").on("submit", (event) => {
 
     function makeCall() { var accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
