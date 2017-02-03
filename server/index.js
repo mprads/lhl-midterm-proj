@@ -55,7 +55,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/register', (request, response) => {
-  response.render('register', data);
+  response.render('register');
 });
 
 app.get('/checkout', (request, response) => {
