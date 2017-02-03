@@ -45,9 +45,9 @@ app.get('/', (request, response) => {
     knex('items')
     .select('name', 'description', 'price', 'food_type_id')
     .then((data) => {
-
+      console.log(data);
       const grouped = groupBy(data, 'food_type_id');
-      // response.json(grouped);
+      console.log(grouped);
       response.render('index', { food_types: grouped });
     })
     .catch(ex => {

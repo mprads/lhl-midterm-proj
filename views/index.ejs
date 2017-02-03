@@ -21,11 +21,14 @@
       <form action="/menu" method="post">
         <% for(var type_id in food_types) { %>
           <section class="">
-            <%= type_id %>
-            <% for(var i = 0; i < food_types[type_id].length; i++) {
-               var food = food_types[type_id][i];
+            <%=  %>
+            <%
+               for(var i = 0; i < food_types[type_id].length; i++) {
+               var food = food_types[type_id][i].name;
             %>
-              <pre><%= JSON.stringify(food, null, 2) %></pre>
+              <p><%=food_types[type_id][i].name%></p>
+              <p><%=food_types[type_id][i].description%></p>
+              <p><%=food_types[type_id][i].price%></p>
 
             <%} %>
           </section>
