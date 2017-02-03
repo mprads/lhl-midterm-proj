@@ -30,9 +30,47 @@ app.use(cookieSession( {
   maxAge: 24 * 60 * 60 * 1000
 }));
 
+app.get('/apps', (request, response) => {
+  knex
+  .select('name', 'description', 'price')
+  .from('items')
+  .where('food_type_id', 1)
+  .then((results) => {
+    response.json(results);
+  });
+});
+
+app.get('/mains', (request, response) => {
+  knex
+  .select('name', 'description', 'price')
+  .from('items')
+  .where('food_type_id', 2)
+  .then((results) => {
+    response.json(results);
+  });
+});
+
+app.get('/desserts', (request, response) => {
+  knex
+  .select('name', 'description', 'price')
+  .from('items')
+  .where('food_type_id', 3)
+  .then((results) => {
+    response.json(results);
+  });
+});
+
+app.get('/drinks', (request, response) => {
+  knex
+  .select('name', 'description', 'price')
+  .from('items')
+  .where('food_type_id', 4)
+  .then((results) => {
+    response.json(results);
+  });
+});
 app.get('/', (request, response) => {
   response.render('index');
-
 });
 
 app.get('/register', (request, response) => {
