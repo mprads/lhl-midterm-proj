@@ -25,10 +25,8 @@ $(() => {
 
 })();
 
-  $("create-order").on("submit", (event) => {
-      event.preventDefault();
-  // creates order id row and adds order-id to cookie
-  });
+
+
 
   $("menu").on("submit", (event) => {
     event.preventDefault();

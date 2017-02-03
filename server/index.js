@@ -41,6 +41,15 @@ function groupBy(data, column) {
     return acc; // return accumulator for the next iteration of reduce // mandatory
   }, {});
 }
+
+app.post('/', (request, response) =>{
+ const order_id = knex('orders')
+  .insert()
+  .returning('id')
+  request.session.order_id = order_id;
+  return;
+});
+
 app.get('/', (request, response) => {
     knex('items')
     .join('food_types', 'items.food_type_id', 'food_types.id')
@@ -55,7 +64,7 @@ app.get('/', (request, response) => {
 });
 
 app.get('/register', (request, response) => {
-  response.render('register', data);
+  response.render('register');
 });
 
 app.get('/checkout', (request, response) => {
@@ -73,11 +82,10 @@ app.get('/checkout', (request, response) => {
   });
 });
 
-
 app.post('/register/addcust', (request, response) => {
-  // Add name and phone number input fields into order table
+  knex()
 
-  response.redirect('checkout');
+  response.redirect('../checkout');
   return;
 });
 
