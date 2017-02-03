@@ -14,42 +14,57 @@
 <% include partials/_header.ejs %>
 
   <h1>Customer Name</h1><h1>Customer Phone Number</h1>
-  <table>
+  <table id="invoice">
   <colgroup span="4"></colgroup>
-  <tr>
-    <th>Your eats</th>
-    <th>Quantity</th>
-    <th>Dollas</th>
-    <th>Pay up</th>
-  </tr>
-  <tr>
-    <td>Waffle</td>
-    <td>80</td>
-    <td>$.89</td>
-    <td>SUM</td>
-  </tr>
-  <tr>
-    <td>Chicken</td>
-    <td>92</td>
-    <td>$5</td>
-    <td>SUM</td>
-  </tr>
-  <tr>
-    <td>Waffle Chicken</td>
-    <td>0</td>
-    <td>$2</td>
-    <td>SUM</td>
-  </tr>
-  <tr>
-    <td>Chicken Waffle</td>
-    <td>0</td>
-    <td>$2.01</td>
-    <td>SUM</td>
-  </tr>
-</table>
+    <tr class ="column">
+      <th>Your eats</th>
+      <th>Quantity</th>
+      <th>Dollas</th>
+      <th>Pay up</th>
+    </tr>
+    <tr>
+      <td>Waffle</td>
+      <td>80</td>
+      <td>$.89</td>
+      <td>SUM</td>
+    </tr>
+    <tr>
+      <td>Chicken</td>
+      <td>92</td>
+      <td>$5</td>
+      <td>SUM</td>
+    </tr>
+    <tr>
+      <td>Waffle Chicken</td>
+      <td>0</td>
+      <td>$2</td>
+      <td>SUM</td>
+    </tr>
+    <tr>
+      <td>Chicken Waffle</td>
+      <td>0</td>
+      <td>$2.01</td>
+      <td>SUM</td>
+    </tr>
+  </table>
   <form action="/neworder" method="post">
     <button>Confirm Order</button>
   </form>
+  <table>
+  <colgroup span="4"></colgroup>
+    <tr>
+      <td>Subtotal</td>
+      <td>SUM</td>
+    </tr>
+    <tr>
+      <td>Tax</td>
+      <td>SUM</td>
+    </tr>
+    <tr>
+      <td>Total </td>
+      <td>SUM</td>
+    </tr>
+  </table>
 
 </body>
 </html>
