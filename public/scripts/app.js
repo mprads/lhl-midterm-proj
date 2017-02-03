@@ -1,5 +1,10 @@
 $(() => {
 
+    const appsMenu = knex.SELECT(*).FROM("items").WHERE()
+    const mainsMenu = knex.SELECT(*).FROM("items")
+    const drinksMenu = knex.SELECT(*).FROM("items")
+    const dessertsMenu = knex.SELECT(*).FROM("items")
+
   $("confirm-order").on("submit", (event) => {
     // twillio magic
     // set order status to new
