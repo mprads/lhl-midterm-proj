@@ -12,6 +12,16 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger  = require('knex-logger');
 
+function groupBy(data, column) {
+  return data.reduce((acc, i) => {
+    if(!acc[i[column]]) {  // if the resulting object doesn't have the thing we're grouping by -
+      acc[i[column]] = []; // make it
+    }
+    acc[i[column]].push(i); // put the item into the bucket under the key we're grouping by
+    return acc; // return accumulator for the next iteration of reduce // mandatory
+  }, {});
+}
+
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 app.set("view engine", "ejs");
@@ -24,53 +34,25 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+
 app.use(cookieSession( {
   name: 'session',
   keys: ['secret'],
   maxAge: 24 * 60 * 60 * 1000
 }));
 
-app.get('/apps', (request, response) => {
-  knex
-  .select('name', 'description', 'price')
-  .from('items')
-  .where('food_type_id', 1)
-  .then((results) => {
-    response.json(results);
-  });
-});
-
-app.get('/mains', (request, response) => {
-  knex
-  .select('name', 'description', 'price')
-  .from('items')
-  .where('food_type_id', 2)
-  .then((results) => {
-    response.json(results);
-  });
-});
-
-app.get('/desserts', (request, response) => {
-  knex
-  .select('name', 'description', 'price')
-  .from('items')
-  .where('food_type_id', 3)
-  .then((results) => {
-    response.json(results);
-  });
-});
-
-app.get('/drinks', (request, response) => {
-  knex
-  .select('name', 'description', 'price')
-  .from('items')
-  .where('food_type_id', 4)
-  .then((results) => {
-    response.json(results);
-  });
-});
 app.get('/', (request, response) => {
-  response.render('index');
+    knex('items')
+    .select('name', 'description', 'price', 'food_type_id')
+    .then((data) => {
+
+      const grouped = groupBy(data, 'food_type_id');
+      // response.json(grouped);
+      response.render('index', { food_types: grouped });
+    })
+    .catch(ex => {
+      res.status(500).json(ex);
+    });
 });
 
 app.get('/register', (request, response) => {

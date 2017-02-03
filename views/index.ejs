@@ -18,22 +18,33 @@
 
 <!-- Menu items here -->
   <main id="menu">
-      <form action="/cart" method="post">
-        <section class="appy">Greets
-          <p>food name</p><input type="text">
+      <form action="/menu" method="post">
+        <% for(var type_id in food_types) { %>
+          <section class="">
+            <%= type_id %>
+            <% for(var i = 0; i < food_types[type_id].length; i++) {
+               var food = food_types[type_id][i];
+            %>
+              <pre><%= JSON.stringify(food, null, 2) %></pre>
+
+            <%} %>
+          </section>
+        <% } %>
+        <!-- <section class="appy">Greets
+          <p>
+          </p>
         </section>
         <section class="main">Eats
-          <p>food name</p><input type="text">
+          <p>food name</p>
         </section>
         <section class="dessert">Treats
           <p>food name</p><input type="text">
         </section>
         <section class="drink">Sips
           <p>drink name</p><input type="text">
-        </section>
+        </section> -->
       </form>
   </main>
-  hello
 
 </body>
 </html>
