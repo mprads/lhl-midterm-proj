@@ -24,65 +24,28 @@
         <div class="row">
           <div class="col-md-2"></div>
             <div class="jumbotron">
-            <div class="col-md-8">
-              <section class="food-groups">
-                <% for(let e = 0; e < 1; e ++) {%>
-                  <h1><%=food_types[type_id][e].type_name%></h1>
-                <%}%>
-                <%for(let i = 0; i < food_types[type_id].length; i++) {
-                  const food = food_types[type_id][i];%>
-                  <form action="/menu" method="post">
-                    <section class="options">
-                      <span class="food-name"><%=food.name%></span>
-                      <span class="food-desc"><%=food.description%></span>
-                      <span class="food-price"><%=food.price%></span>
-                    </section>
-                  </form>
-                <%} %>
-              </section>
+              <!-- <div class="col-md-8 card card-primary text-center z-depth-2 card-block">
+                <section class="white-text food-groups"> -->
+                  <% for(let e = 0; e < 1; e ++) {%>
+                      <h1><%=food_types[type_id][e].type_name%></h1>
+                  <%}%>
+                    <%for(let i = 0; i < food_types[type_id].length; i++) {
+                      const food = food_types[type_id][i];%>
+                      <form action="/menu" method="post">
+                        <section class="options">
+                          <span class="food-name"><%=food.name%></span>
+                          <span class="food-desc"><%=food.description%></span>
+                          <span class="food-price"><%=food.price%></span>
+                        </section>
+                      </form>
+                    <%} %>
+                  </section>
+                <!-- </div> -->
               </div>
             <div class="col-md-2"></div>
         </div>
       </div>
     <% } %>
-        <!--
-
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <form form action="/cart" method="post">
-          <section class="appys">Greets
-            <p>food name</p><input type="text">
-          </section>
-          <section class="main">Eats
-            <p>food name</p><input type="text">
-          </section>
-          <section class="dessert">Sweets
-            <p>food name</p><input type="text">
-          </section>
-          <section class="drink">Bevies
-            <p>food name</p><input type="text">
-          </section>
-        </form>
-      </div>
-
-      <div class="col-md-2"></div>
-
-       <form action="/cart" method="post">
-        <section class="appys">Greets
-          <p>food name</p><input type="text">
-        </section>
-        <section class="main">Eats
-          <p>food name</p>
-        </section>
-        <section class="dessert">Treats
-          <p>food name</p><input type="text">
-        </section>
-        <section class="drink">Sips
-          <p>drink name</p><input type="text">
-        </section> -->
 
   </main>
 

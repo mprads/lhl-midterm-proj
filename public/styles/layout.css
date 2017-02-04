@@ -1,5 +1,13 @@
-.jumbotron {
+.container-fluid .jumbotron {
+  position: relative;
   padding-left: 60px;
+  border: 2px solid;
+  border-radius: 0;
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 2em;
+  margin-bottom: 0px;
+  margin-right: 10em;
+  margin-left: 10em;
 }
 
 body {
