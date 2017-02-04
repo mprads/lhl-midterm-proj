@@ -35,14 +35,14 @@ $(() => {
     // if item doesnt exist
     $.ajax({
       method: "POST",
-      url: "/carts",
+      url: "/cart",
       data: data
     })
     loadItems();
     // if item does exist
     $.ajax({
       method: "PUT",
-      url: "/carts",
+      url: "/cart",
       data: data
     })
     loadItems();
@@ -52,7 +52,7 @@ $(() => {
     event.preventDefault();
     $.ajax({
       method: "DELETE",
-      url: "/carts",
+      url: "/cart",
       data: data
     })
     loadItems();
