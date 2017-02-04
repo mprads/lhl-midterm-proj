@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <title>Order For Pick Up</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -12,12 +14,29 @@
 </head>
 <body>
 <!-- Top nav bar follows this line -->
-  <header>
-    <% include partials/_header.ejs %>
-  </header>
-<body>
+<header>
+  <% include partials/_header.ejs %>
+</header>
 <!-- Menu items here -->
-  <main id="menu">
+<div class="shopping-cart">
+  <div class="shopping-cart-header">
+    <i class="fa fa-shopping-cart cart-icon"></i>
+    <span class="badge">3</span>
+    <div class="shopping-cart-total">
+      <span class="lighter-text">Total:</span>
+      <span class="main-color-text">$2,229.97</span>
+    </div>
+  </div>
+  <ul class="shopping-cart-items">
+    <li class="clearfix">
+      <span class="item-name">Burger</span>
+      <span class="item-price">$9.99</span>
+      <span class="item-quantity">Quantity: 01</span>
+    </li>
+  </ul>
+  <a href="/register" class="checkout-button">Checkout</a>
+</div>
+<hr class="featurette-divider">  <main id="menu">
     <% for(let type_id in food_types) { %>
       <div class="container-fluid">
         <div class="row">
@@ -49,6 +68,7 @@
 
   </main>
 
+<% include partials/_footer.ejs %>
 <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/scripts/app.js"></script>

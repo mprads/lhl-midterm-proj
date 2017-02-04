@@ -18,11 +18,6 @@ $(() => {
   // });
 
 
-    $(".cart-badge").on("click", function() {
-      $(".shopping-cart").fadeToggle( "fast");
-    });
-
-
 
 
   $(".pick-item").on("submit", (event) => {
@@ -56,6 +51,17 @@ $(() => {
     const name = $(<"span">).text(itemObj.)
 
   }
+
+  $('.container-fluid').on('click', function(event){
+    if($(this).find('.options').is(":animated")) {
+      return false;
+    }
+    $(this).find('.options').slideToggle('slow')
+  });
+
+  $(".cart-badge").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
+    });
 
   // Ajax post to add items to cart
   function renderItems(items) {

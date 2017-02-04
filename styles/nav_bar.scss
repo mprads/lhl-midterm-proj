@@ -8,6 +8,39 @@
     padding: 15px 0;
     /* Add additional styles here for the UNCOLLAPSED state */
   }
+
+  .restaurant-title {
+    font-size: large;
+    line-height: 10px;
+  }
+
+  img {
+    width: 50%;
+    line-height: 10%;
+
+    .row-centered{
+      text-align: centered;
+    }
+  }
+
+  h2 {
+    line-height: 30%;
+  }
+
+  .reg-badge {
+    background-color: #6394F8;
+    margin-right: 8px;
+  /*  margin-bottom: 5px;*/
+    border-radius: 10px;
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    padding: 13px 14px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    float: right;
+  }
   .navbar-default.affix {
     padding: 0;
     /* Add additional styles here for the COLLAPSED state */

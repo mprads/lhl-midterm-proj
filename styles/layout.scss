@@ -2,9 +2,25 @@
 
 
 .jumbotron{
+
+@import 'shopping-cart';
+
+.container-fluid .jumbotron{
+  position: relative;
   padding-left: 60px;
+  border: 2px solid;
 }
+
+.row {
+
+}
+
 
 body {
   padding-top: 100px;
+  overflow: scroll;
+}
+
+.options {
+  display: none;
 }
