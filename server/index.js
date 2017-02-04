@@ -42,11 +42,29 @@ function groupBy(data, column) {
   }, {});
 }
 
-app.post('/', (request, response) =>{
- const order_id = knex('orders')
-  .insert()
+app.post('/addcust', (request,response) => {
+  knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
   .returning('id')
-  request.session.order_id = order_id;
+  .into('orders')
+  .then((data) => {
+    response.redirect('/');
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+})
+
+app.post('/cart', (request, response) =>{
+
+  knex('line_items')
+  .insert({'item_id': 1, 'quantity': 2, 'order_id': variable })
+  .returning('id')
+  .then((data) => {
+  })
+  .catch(ex => {
+      response.status(500).json(ex);
+    });
   return;
 });
 
@@ -59,7 +77,7 @@ app.get('/', (request, response) => {
       response.render('index', { food_types: grouped});
     })
     .catch(ex => {
-      res.status(500).json(ex);
+      response.status(500).json(ex);
     });
 });
 
@@ -78,16 +96,10 @@ app.get('/checkout', (request, response) => {
     response.render('checkout', {data: data});
     })
   .catch(ex => {
-      res.status(500).json(ex);
+      response.status(500).json(ex);
   });
 });
 
-app.post('/register/addcust', (request, response) => {
-  knex()
-
-  response.redirect('../checkout');
-  return;
-});
 
 app.get('/checkout', (request, response) => {
   response.render('checkout');
