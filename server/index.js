@@ -42,13 +42,13 @@ function groupBy(data, column) {
   }, {});
 }
 
-app.post('/addcust', (request,response) => {
+app.post('/register/addcust', (request,response) => {
   knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
   .returning('id')
   .into('orders')
   .then((data) => {
     request.session.order_id = data[0];
-    response.redirect('/');
+    response.redirect('/checkout');
   })
   .catch(ex => {
     response.status(500).json(ex);
