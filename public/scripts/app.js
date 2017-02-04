@@ -22,6 +22,20 @@ $(() => {
   //   makeCall(order.cus_name, order);
   // });
 
+  function createItem(itemObj) {
+    const $name = $('<span>').text(itemObj.name).addClass('.item-name');
+    const $price = $('<span>').text(itemObj.price).addClass('.item-price');
+    const $quantity = $('<span>').text(itemObj.quantity).addClass('.item-quantity');
+    let $body = $('<li>');
+    $body.append($name, $price);
+    return $body;
+  }
+  // Ajax post to add items to cart
+  function renderItems(items) {
+    items.forEach(item => {
+      $('.shopping-cart-items').append(createItem(item));
+    })
+  }
 
   function loadCart () {
     $.ajax({
@@ -35,42 +49,31 @@ $(() => {
 
   $(".pick-item").on("submit", (event) => {
     event.preventDefault();
+    const data = $(event.currentTarget).serialize();
     $.ajax({
       method: "POST",
       url: "/cart",
-
-    })
-    loadItems();
-    // if item does exist
-    $.ajax({
-      method: "PUT",
-      url: "/cart",
       data: data
+    }).then((response) => {
+      loadCart();
     })
-    // loadItems();
   });
 
-  $("delete-from-cart").on("submit", (event) => {
-    event.preventDefault();
-    $.ajax({
-      method: "DELETE",
-      url: "/cart",
-      data: data
-    })
-    loadItems();
-  });
-
-  function createItem(itemObj) {
-    // const name = $("span").text(itemObj.);
-  }
-  // Ajax post to add items to cart
-  function renderItems(items) {
-    items.forEach(item => {
+  // $("delete-from-cart").on("submit", (event) => {
+  //   event.preventDefault();
+  //   $.ajax({
+  //     method: "DELETE",
+  //     url: "/cart",
+  //     data: data
+  //   })
+  //   loadItems();
+  // });
 
 
-      $("shopping-cart-items").append(createItem(item));
-    });
-  }
+
+    //   $("shopping-cart-items").append(createItem(item));
+    // });
+
   $('.features').on('click', function(event) {
     if($(this).find('.options').is(':animated')) {
       return false;

@@ -57,14 +57,29 @@ app.post('/addcust', (request,response) => {
 })
 
 app.post('/cart', (request, response) =>{
-  console.log('add');
   let order_id = request.session.order_id;
   let food_id = request.body.food_id;
   knex('line_items')
-  .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
+  .insert({'item_id': food_id[0], 'quantity': 1, 'order_id': order_id })
   .returning('id')
   .then((data) => {
-    response.json(data);
+    response.render('cart', data);
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+});
+
+app.get('/cart', (request, response) => {
+  let order_id = request.session.order_id;
+  knex('orders')
+  .join('line_items', 'orders.id', 'line_items.order_id')
+  .join('items', 'line_items.item_id', 'items.id')
+  .select('items.name', 'items.price', 'line_items.quantity')
+  .where('orders.id', order_id)
+  .then((data) => {
+   response.render('cart', data);
   })
   .catch(ex => {
     response.status(500).json(ex);
@@ -83,6 +98,7 @@ app.get('/', (request, response) => {
     .catch(ex => {
       response.status(500).json(ex);
     });
+    return;
 });
 
 app.get('/register', (request, response) => {
@@ -90,11 +106,12 @@ app.get('/register', (request, response) => {
 });
 
 app.get('/checkout', (request, response) => {
+  let order_id = request.session.order_id;
   knex('orders')
   .join('line_items', 'orders.id', 'line_items.order_id')
   .join('items', 'line_items.item_id', 'items.id')
   .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
-  .where('orders.id', 1)
+  .where('orders.id', order_id)
   .then((data) => {
     console.log(data);
     response.render('checkout', {data: data});
@@ -104,10 +121,6 @@ app.get('/checkout', (request, response) => {
   });
 });
 
-
-app.get('/checkout', (request, response) => {
-  response.render('checkout');
-});
 
 app.post('/checkout', (request, response) => {
   response.redirct('status');
