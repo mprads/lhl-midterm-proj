@@ -13,3 +13,7 @@
 body {
   padding-top: 100px;
 }
+
+#mainFooter {
+  font-size: .5em;
+}
