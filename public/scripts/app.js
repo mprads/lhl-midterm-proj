@@ -24,14 +24,14 @@ $(() => {
     event.preventDefault();
     $.ajax({
       method: "POST",
-       url: "/cart",
+      url: "/cart",
       data: data
     })
     loadItems();
     // if item does exist
     $.ajax({
       method: "PUT",
-      // url: "/carts",
+      url: "/cart",
       data: data
     })
     loadItems();
@@ -41,7 +41,7 @@ $(() => {
     event.preventDefault();
     $.ajax({
       method: "DELETE",
-      url: "/carts",
+      url: "/cart",
       data: data
     })
     loadItems();
@@ -73,7 +73,7 @@ $(() => {
   function loadCart () {
     $.ajax({
       method: "GET",
-      url: "/carts"
+      url: "/cart"
     }).then((respose) => {
       $("#cart").empty();
       renderCart(respose)
