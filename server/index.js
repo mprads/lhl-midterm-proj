@@ -57,6 +57,7 @@ app.post('/addcust', (request,response) => {
 })
 
 app.post('/cart', (request, response) =>{
+  console.log('add');
   let order_id = request.session.order_id;
   let food_id = request.body.food_id;
   knex('line_items')

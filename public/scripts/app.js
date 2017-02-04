@@ -1,7 +1,9 @@
 $(() => {
-  $(".cart-badge").on("click", function() {
+
+  $("#cart").on("click", function() {
     $(".shopping-cart").fadeToggle( "fast");
     });
+
 
   // $("confirm-order").on("submit", (event) => {
 
@@ -21,14 +23,22 @@ $(() => {
   // });
 
 
-
+  function loadCart () {
+    $.ajax({
+      method: "GET",
+      url: "/cart"
+    }).then((respose) => {
+      $("shopping-cart-items").empty();
+      renderCart(respose)
+    });
+  }
 
   $(".pick-item").on("submit", (event) => {
     event.preventDefault();
     $.ajax({
       method: "POST",
       url: "/cart",
-      data: data
+
     })
     loadItems();
     // if item does exist
@@ -37,7 +47,7 @@ $(() => {
       url: "/cart",
       data: data
     })
-    loadItems();
+    // loadItems();
   });
 
   $("delete-from-cart").on("submit", (event) => {
@@ -51,33 +61,27 @@ $(() => {
   });
 
   function createItem(itemObj) {
-    const name = $(<"span">).text(itemObj.)
-
+    // const name = $("span").text(itemObj.);
   }
-
-  $('.container-fluid').on('click', function(event){
-    if($(this).find('.options').is(":animated")) {
-      return false;
-    }
-    $(this).find('.options').slideToggle('slow')
-  });
-
-
   // Ajax post to add items to cart
   function renderItems(items) {
     items.forEach(item => {
-      $("#cart").append(createItem(item));
-    });
-  }
 
-  function loadCart () {
-    $.ajax({
-      method: "GET",
-      url: "/cart"
-    }).then((respose) => {
-      $("#cart").empty();
-      renderCart(respose)
+
+      $("shopping-cart-items").append(createItem(item));
     });
   }
-  loadCart();
+  $('.features').on('click', function(event) {
+    if($(this).find('.options').is(':animated')) {
+      return false;
+    }
+    $(this).closest($('.container-fluid')).find('.options').slideToggle('slow')
+  });
+
+
+
+   $(".cart-badge").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
+    });
+
 });
