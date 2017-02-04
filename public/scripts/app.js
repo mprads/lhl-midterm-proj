@@ -17,11 +17,10 @@ $(() => {
   //   makeCall(order.cus_name, order);
   // });
 
-  (function(){
-    $("#cart").on("click", function() {
+
+    $(".cart-badge").on("click", function() {
       $(".shopping-cart").fadeToggle( "fast");
     });
-  })();
 
 
 

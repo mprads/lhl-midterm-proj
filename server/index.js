@@ -47,6 +47,7 @@ app.post('/addcust', (request,response) => {
   .returning('id')
   .into('orders')
   .then((data) => {
+    request.session.order_id = data[0];
     response.redirect('/');
   })
   .catch(ex => {
@@ -56,22 +57,25 @@ app.post('/addcust', (request,response) => {
 })
 
 app.post('/cart', (request, response) =>{
-
+  let order_id = request.session.order_id;
+  let food_id = request.body.food_id;
   knex('line_items')
-  .insert({'item_id': 1, 'quantity': 2, 'order_id': variable })
+  .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
   .returning('id')
   .then((data) => {
+    console.log("some data", data);
+    response.redirect("/");
   })
   .catch(ex => {
-      response.status(500).json(ex);
-    });
+    response.status(500).json(ex);
+  });
   return;
 });
 
 app.get('/', (request, response) => {
     knex('items')
     .join('food_types', 'items.food_type_id', 'food_types.id')
-    .select('items.name', 'items.description', 'items.price', 'items.food_type_id', 'food_types.name as type_name')
+    .select('items.name','items.id', 'items.description', 'items.price', 'items.food_type_id', 'food_types.name as type_name')
     .then((data) => {
       const grouped = groupBy(data, 'food_type_id');
       response.render('index', { food_types: grouped});

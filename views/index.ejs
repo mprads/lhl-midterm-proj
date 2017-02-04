@@ -17,7 +17,6 @@
   </header>
 <body>
 <!-- Menu items here -->
-
   <main id="menu">
     <% for(let type_id in food_types) { %>
       <div class="container-fluid">
@@ -31,11 +30,13 @@
                 <%}%>
                 <%for(let i = 0; i < food_types[type_id].length; i++) {
                   const food = food_types[type_id][i];%>
-                  <form action="/menu" method="post">
+                  <form action="/cart" method="post">
                     <section class="options">
+                      <input type="hidden" value="<%=food.id%>" name="food_id">
                       <span class="food-name"><%=food.name%></span>
                       <span class="food-desc"><%=food.description%></span>
                       <span class="food-price"><%=food.price%></span>
+                      <button type="submit">Add</button>
                     </section>
                   </form>
                 <%} %>
