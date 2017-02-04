@@ -63,8 +63,7 @@ app.post('/cart', (request, response) =>{
   .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
   .returning('id')
   .then((data) => {
-    console.log("some data", data);
-    response.redirect("/");
+    response.json(data);
   })
   .catch(ex => {
     response.status(500).json(ex);
