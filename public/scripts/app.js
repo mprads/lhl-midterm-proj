@@ -1,4 +1,7 @@
 $(() => {
+  $(".cart-badge").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
+    });
 
   $("confirm-order").on("submit", (event) => {
 
@@ -65,9 +68,6 @@ $(() => {
     $(this).find('.options').slideToggle('slow')
   });
 
-  $(".cart-badge").on("click", function() {
-    $(".shopping-cart").fadeToggle( "fast");
-    });
 
   // Ajax post to add items to cart
   function renderItems(items) {
@@ -79,7 +79,7 @@ $(() => {
   function loadCart () {
     $.ajax({
       method: "GET",
-      url: "/carts"
+      url: "/cart"
     }).then((respose) => {
       $("#cart").empty();
       renderCart(respose)
