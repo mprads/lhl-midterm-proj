@@ -45,7 +45,14 @@ function groupBy(data, column) {
 }
 
 app.post('/register/addcust', (request,response) => {
-  knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
+  // if(requst.body.Phone){
+
+  // }
+  // console.log("Phone number", request.body.Phone1, request.body.Phone2, request.body.Phone3);
+  const phone = "(" + request.body.Phone1 + ")" + request.body.Phone2 + "-" + request.body.Phone3;
+  const name = request.body.first_name + " " + request.body.last_name;
+
+  knex.insert({'cus_name': name, 'phone': phone, 'status_id': 1})
   .returning('id')
   .into('orders')
   .then((data) => {
