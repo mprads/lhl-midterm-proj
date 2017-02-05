@@ -150,13 +150,39 @@ app.post('/order-info', (request, response) => {
   .select('orders.cus_name', 'orders.phone', 'orders.status_id', 'line_items.quantity', 'items.name', 'items.price')
   .where('orders.id', order_id)
   .then((data) => {
-    response.render('status', {data: data});
+    filterOrder(data);
+    response.json(data);
     })
   .catch(ex => {
       response.status(500).json(ex);
   });
   return;
 });
+
+function filterOrder(orderObj) {
+  let strName = orderObj[0].cus_name;
+  strName = strName.replace(" ", "");
+  let strOrder = '';
+  orderObj.forEach((obj) => {
+    strOrder += obj.name +"%20"
+    strOrder = strOrder.replace(" ", "%20");
+  });
+ makeCall(strName, strOrder);
+}
+
+function makeCall(name, order) {
+      const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
+      const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+      const client = require('twilio')(accountSid, authToken);
+
+      client.calls.create({
+        url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
+        to: "+16043652188",
+        from: " +16043300743"
+      }, function(err, call) {
+        process.stdout.write(call.sid);
+      });
+    }
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
