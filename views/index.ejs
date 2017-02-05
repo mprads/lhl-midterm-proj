@@ -16,7 +16,7 @@
   <% include partials/_header.ejs %>
 </header>
 <!-- Menu items here -->
-<div class="shopping-cart">
+<div class="shopping-cart hidden-md hidden-sm hidden-xs">
   <div class="shopping-cart-header">
     <i class="fa fa-shopping-cart cart-icon"></i>
     <span class="badge">3</span>
@@ -41,19 +41,37 @@
         <div class="row">
           <div class="col-md-2"></div>
           <div class="col-md-8">
-            <div class="jumbotron">
+            <!-- <div class="jumbotron"> -->
               <% for(let e = 0; e < 1; e ++) {%>
+              <div class="jumbotron">
                 <h1 class="features"><%=food_types[type_id][e].type_name%></h1>
+
               <%}%>
                 <%for(let i = 0; i < food_types[type_id].length; i++) {
                   const food = food_types[type_id][i];%>
                   <form class="pick-item" action="/cart" method="post">
                     <section class="options">
-                      <input type="hidden" value="<%=food.id%>" name="food_id">
-                      <span class="food-name"><%=food.name%></span>
-                      <span class="food-desc"><%=food.description%></span>
-                      <span class="food-price"><%=food.price%></span>
-                      <button type="submit">Add</button>
+                      <div class="row">
+                        <input type="hidden" value="<%=food.id%>" name="food_id">
+                        <span class="food-name">
+                          <div class="col">
+                            <h3><%=food.name%><h3>
+                          </div>
+                        </span>
+                        <div class="w-100"></div>
+                        <span class="food-desc">
+                          <div class="col"><%=food.description%></div>
+                        </span>
+                        <div class="w-100"></div>
+                        <span class="food-price">
+                          <div class="col">
+                            <button type="submit" class="btn btn-default">
+                              <span class="glyphicon glyphicon-plus"></span>
+                              <%=food.price%>
+                            </button>
+                          </div>
+                        </span>
+                      </div>
                     </section>
                   </form>
                 <%} %>
