@@ -42,6 +42,65 @@ function groupBy(data, column) {
   }, {});
 }
 
+app.post('/register/addcust', (request,response) => {
+  knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
+  .returning('id')
+  .into('orders')
+  .then((data) => {
+    request.session.order_id = data[0];
+    response.redirect('/');
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+})
+
+app.post('/cart/delete/:id', (request, response) => {
+  let order_id = request.session.order_id;
+  knex('line_items')
+  .where('item_id', request.params.id)
+  .del()
+  .then((data) => {
+    response.json(data);
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+});
+
+app.post('/cart', (request, response) => {
+  let order_id = request.session.order_id;
+  let food_id = request.body.food_id;
+  knex('line_items')
+  .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
+  .returning('item_id')
+  .then((data) => {
+    response.json(data);
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+});
+
+app.get('/cart', (request, response) => {
+  let order_id = request.session.order_id;
+  knex('orders')
+  .join('line_items', 'orders.id', 'line_items.order_id')
+  .join('items', 'line_items.item_id', 'items.id')
+  .select('items.name', 'items.price', 'line_items.quantity')
+  .where('orders.id', order_id)
+  .then((data) => {
+    response.json(data);
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+});
+
 app.get('/', (request, response) => {
     knex('items')
     .join('food_types', 'items.food_type_id', 'food_types.id')
@@ -53,6 +112,7 @@ app.get('/', (request, response) => {
     .catch(ex => {
       response.status(500).json(ex);
     });
+    return;
 });
 
 app.get('/register', (request, response) => {
@@ -60,13 +120,13 @@ app.get('/register', (request, response) => {
 });
 
 app.get('/checkout', (request, response) => {
+  let order_id = request.session.order_id;
   knex('orders')
   .join('line_items', 'orders.id', 'line_items.order_id')
   .join('items', 'line_items.item_id', 'items.id')
   .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
-  .where('orders.id', 1)
+  .where('orders.id', order_id)
   .then((data) => {
-    // console.log(data);
     response.render('checkout', {data: data});
     })
   .catch(ex => {
@@ -74,69 +134,18 @@ app.get('/checkout', (request, response) => {
   });
 });
 
-
 app.get('/status', (request, response) => {
   response.render('status');
 });
 
-// restaurant status update page
 app.get('/orders', (request, response) => {
   response.render('orders');
 });
-
-// restaurant status update request
-// app.post('/status/update/:id', (request, response) => {
-//   response.send('update');
-// });
-
-
-app.get('/checkout', (request, response) => {
-  response.render('checkout');
-});
-
-
-app.post('/cart', (request, response) =>{
-  // console.log('add');
-  let order_id = request.session.order_id;
-  let food_id = request.body.food_id;
-  knex('line_items')
-  .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
-  .returning('id')
-  .then((data) => {
-    response.json(data);
-  })
-  .catch(ex => {
-    response.status(500).json(ex);
-  });
-  return;
-});
-
-app.post('/register/addcust', (request,response) => {
-
-  let cus_name = request.body.fullname;
-  let cus_phone = request.body.phone;
-
-  knex.insert({'cus_name': cus_name, 'phone': cus_phone, 'status_id': 1})
-  .returning('id')
-  .into('orders')
-  .then((data) => {
-    request.session.order_id = data[0];
-    response.redirect('/checkout');
-  })
-  .catch(ex => {
-    response.status(500).json(ex);
-  });
-  return;
-});
-
 
 app.post('/checkout', (request, response) => {
   response.redirct('status');
   return;
 });
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
