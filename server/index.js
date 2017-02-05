@@ -152,7 +152,19 @@ app.get('/status', (request, response) => {
 });
 
 app.get('/orders', (request, response) => {
-  response.render('orders');
+  knex('orders')
+  .join('line_items', 'orders.id', '=', 'line_items.order_id')
+  .join('items', 'line_items.item_id', '=', 'items.id')
+  .join('statuses', 'orders.status_id', '=', 'statuses.id')
+  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
+  .then((data) => {
+    console.log(data);
+
+    response.render('orders',{data: data});
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
 });
 
 app.post('/order-info', (request, response) => {
@@ -189,18 +201,18 @@ function filterOrder(orderObj) {
 }
 
 function makeCall(name, order) {
-      const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
-      // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
-      const client = require('twilio')(accountSid, authToken);
-      console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
-      client.calls.create({
-        url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
-        to: "+16043652188",
-        from: " +16043300743"
-      }, function(err, call) {
-        process.stdout.write(call.sid);
-      });
-    }
+  const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
+  // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+  const client = require('twilio')(accountSid, authToken);
+  console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
+  client.calls.create({
+    url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
+    to: "+16043652188",
+    from: " +16043300743"
+  }, function(err, call) {
+    process.stdout.write(call.sid);
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
