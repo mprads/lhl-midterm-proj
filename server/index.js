@@ -76,7 +76,12 @@ app.get('/checkout', (request, response) => {
 
 
 app.get('/status', (request, response) => {
-  response.render('status');
+  knex('orders')
+  .join('statuses', 'orders.status_id', 'statuses.id')
+  .select('orders.id', 'orders.cus_name', 'orders.phone' 'orders.created_at', 'statuses.status_name')
+  .then((data) => {
+    response.json('status', data);
+  })
 });
 
 // restaurant status update page

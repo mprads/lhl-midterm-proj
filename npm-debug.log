@@ -10,8 +10,8 @@
 6 silly lifecycle food-order@1.0.0~prelocal: no script for prelocal, continuing
 7 info lifecycle food-order@1.0.0~local: food-order@1.0.0
 8 verbose lifecycle food-order@1.0.0~local: unsafe-perm in lifecycle true
-9 verbose lifecycle food-order@1.0.0~local: PATH: /home/vagrant/.nvm/versions/node/v6.3.1/lib/node_modules/npm/bin/node-gyp-bin:/vagrant/lhlclass/projects/lhl-midterm-proj/node_modules/.bin:/home/vagrant/.nvm/versions/node/v6.3.1/bin:/home/vagrant/.nvm/versions/node/v6.3.1/bin:/home/vagrant/.rvm/gems/ruby-2.3.0/bin:/home/vagrant/.rvm/gems/ruby-2.3.0@global/bin:/home/vagrant/.rvm/rubies/ruby-2.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/vagrant/.rvm/bin:/home/vagrant/.rvm/bin
-10 verbose lifecycle food-order@1.0.0~local: CWD: /vagrant/lhlclass/projects/lhl-midterm-proj
+9 verbose lifecycle food-order@1.0.0~local: PATH: /home/vagrant/.nvm/versions/node/v6.3.1/lib/node_modules/npm/bin/node-gyp-bin:/vagrant/w4/midterm/node_modules/.bin:/home/vagrant/.nvm/versions/node/v6.3.1/bin:/home/vagrant/.nvm/versions/node/v6.3.1/bin:/home/vagrant/.rvm/gems/ruby-2.3.0/bin:/home/vagrant/.rvm/gems/ruby-2.3.0@global/bin:/home/vagrant/.rvm/rubies/ruby-2.3.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/vagrant/.rvm/bin:/home/vagrant/.rvm/bin
+10 verbose lifecycle food-order@1.0.0~local: CWD: /vagrant/w4/midterm
 11 silly lifecycle food-order@1.0.0~local: Args: [ '-c', 'nodemon --watch server -e js server/index.js' ]
 12 silly lifecycle food-order@1.0.0~local: Returned: code: 1  signal: null
 13 info lifecycle food-order@1.0.0~local: Failed to exec local script
@@ -26,8 +26,8 @@
 14 verbose stack     at maybeClose (internal/child_process.js:852:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:215:5)
 15 verbose pkgid food-order@1.0.0
-16 verbose cwd /vagrant/lhlclass/projects/lhl-midterm-proj
-17 error Linux 4.4.0-59-generic
+16 verbose cwd /vagrant/w4/midterm
+17 error Linux 4.4.0-62-generic
 18 error argv "/home/vagrant/.nvm/versions/node/v6.3.1/bin/node" "/home/vagrant/.nvm/versions/node/v6.3.1/bin/npm" "run" "local"
 19 error node v6.3.1
 20 error npm  v3.10.3

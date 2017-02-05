@@ -32,6 +32,7 @@ exports.up = function(knex, Promise) {
       table.string('phone');
       table.integer('status_id').unsigned();
       table.foreign('status_id').references('statuses.id');
+      table.timestamp('created_at').defaultTo(knex.fn.now());
     }),
 
     //line_items
