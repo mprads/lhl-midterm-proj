@@ -6,34 +6,41 @@
 </head>
 <body>
 <!-- Top nav bar follows this line -->
-
+<header>
   <% include partials/_header.ejs %>
+</header>
+<hr class="featurette-divider">
 
   <main role="main" class="container-fluid">
 
     <div class="row">
 
       <table class="table table-striped">
-        <colgroup span="7"></colgroup>
+        <colgroup span="9"></colgroup>
         <tr>
           <th class="text-center">Order ID</th>
           <th class="text-center">Customer Name</th>
           <th class="text-center">Phone Number</th>
+          <th class="text-center">Order Amount</th>
           <th class="text-center">Ordered at</th>
           <th class="text-center">Estimates</th>
           <th class="text-center">Status</th>
+          <th class="text-center">Text</th>
           <th class="text-center"></th>
         </tr>
+        <% for (let i = 0; i < data.length; i++) { %>
         <tr>
-          <td class="text-center">1</th>
-          <td class="text-center">Hoon Lee</th>
-          <td class="text-center">2938473828</th>
-          <td class="text-center">order time</th>
+          <td class="text-center"><%=data[i].id%></th>
+          <td class="text-center"><%=data[i].cus_name%></th>
+          <td class="text-center"><%=data[i].phone%></th>
+          <td class="text-center">Order Value</th>
+          <td class="text-center"><%=data[i].phone%></th>
           <td class="text-center">estimates</th>
-          <td class="text-center">status</th>
-          <td class="text-center"><button>Update</button></th>
+          <td class="text-center"><%=data[i].status_name%></th>
+          <td class="text-center"><input type="textarea" name="text-msg"></th>
+          <td class="text-center"><button type="button" class="btn btn-danger btn-sm">Update</button></th>
         </tr>
-
+        <% } %>
       </table>
 
     </div>

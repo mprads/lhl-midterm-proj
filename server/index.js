@@ -13,6 +13,8 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger  = require('knex-logger');
 
+const moment = require('moment');
+
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
 app.set("view engine", "ejs");
@@ -121,13 +123,17 @@ app.get('/register', (request, response) => {
 
 app.get('/checkout', (request, response) => {
   let order_id = request.session.order_id;
+  if (!order_id || order_id.length === 0) {
+    response.redirect('/');
+    return;
+  }
   knex('orders')
   .join('line_items', 'orders.id', 'line_items.order_id')
   .join('items', 'line_items.item_id', 'items.id')
   .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
   .where('orders.id', order_id)
   .then((data) => {
-    response.render('checkout', {data: data});
+      response.render('checkout', {data: data});
     })
   .catch(ex => {
       response.status(500).json(ex);
@@ -135,11 +141,31 @@ app.get('/checkout', (request, response) => {
 });
 
 app.get('/status', (request, response) => {
-  response.render('status');
+  let order_id = request.session.order_id;
+  knex('orders')
+  .join('statuses', 'orders.status_id', 'statuses.id')
+  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.created_at', 'statuses.status_name')
+  .where('orders.id', order_id)
+  .then((data) => {
+    console.log("data:", data);
+    response.render('status', {data: data, moment: moment});
+  })
 });
 
 app.get('/orders', (request, response) => {
-  response.render('orders');
+  knex('orders')
+  .join('line_items', 'orders.id', '=', 'line_items.order_id')
+  .join('items', 'line_items.item_id', '=', 'items.id')
+  .join('statuses', 'orders.status_id', '=', 'statuses.id')
+  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
+  .then((data) => {
+    console.log(data);
+
+    response.render('orders',{data: data});
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
 });
 
 app.post('/order-info', (request, response) => {
@@ -156,6 +182,11 @@ app.post('/order-info', (request, response) => {
   .catch(ex => {
       response.status(500).json(ex);
   });
+});
+
+app.post('/checkout', (request, response) => {
+
+  response.redirct('status');
   return;
 });
 
@@ -171,18 +202,18 @@ function filterOrder(orderObj) {
 }
 
 function makeCall(name, order) {
-      const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
-      // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
-      const client = require('twilio')(accountSid, authToken);
-      console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
-      client.calls.create({
-        url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
-        to: "+16043652188",
-        from: " +16043300743"
-      }, function(err, call) {
-        process.stdout.write(call.sid);
-      });
-    }
+  const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
+  // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+  const client = require('twilio')(accountSid, authToken);
+  console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
+  client.calls.create({
+    url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
+    to: "+16043652188",
+    from: " +16043300743"
+  }, function(err, call) {
+    process.stdout.write(call.sid);
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
