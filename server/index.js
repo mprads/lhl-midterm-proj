@@ -193,6 +193,7 @@ function filterOrder(orderObj) {
   orderObj.forEach((obj) => {
     strOrder += obj.name.replace(" ", "%20");
     strOrder = strOrder.replace(" ", "%20");
+    strOrder = strOrder.replace(" ", "%20");
   });
  makeCall(strName, strOrder);
 }
