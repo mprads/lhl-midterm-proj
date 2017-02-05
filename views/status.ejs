@@ -31,8 +31,8 @@
         </tr>
         <% for (let i = 0; i < data.length; i++) { %>
         <tr>
-          <td class="text-center"> <%= data[i].id %></td>
-          <td class="text-center">19.99</td>
+          <td class="text-center"><%= data[i].id %></td>
+          <td class="text-center"><%=data[i].order_total%></td>
           <td class="text-center"><%= moment(data[i].created_at).format('YYYY-MM-DD HH:mm:ss'); %></td>
           <td class="text-center"><%= data[i].status_name %></td>
           <td class="text-center">0.5 hr</td>

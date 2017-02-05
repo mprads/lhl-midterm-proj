@@ -147,21 +147,14 @@ app.get('/status', (request, response) => {
   .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.created_at', 'statuses.status_name')
   .where('orders.id', order_id)
   .then((data) => {
-    console.log("data:", data);
     response.render('status', {data: data, moment: moment});
   })
 });
 
 app.get('/orders', (request, response) => {
-  knex('orders')
-  .join('line_items', 'orders.id', '=', 'line_items.order_id')
-  .join('items', 'line_items.item_id', '=', 'items.id')
-  .join('statuses', 'orders.status_id', '=', 'statuses.id')
-  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
+  knex.raw('SELECT orders.id, orders.cus_name, orders.phone, orders.created_at, orders.status_id, statuses.status_name, order_total.order_total FROM orders JOIN (SELECT line_items.order_id, SUM(line_items.quantity*items.price) AS order_total FROM line_items JOIN items ON line_items.item_id = items.id GROUP BY line_items.order_id) AS order_total ON orders.id = order_total.order_id JOIN statuses ON orders.status_id = statuses.id ORDER BY orders.id')
   .then((data) => {
-    console.log(data);
-
-    response.render('orders',{data: data});
+    response.render('orders', {data: data.rows, moment: moment});
   })
   .catch(ex => {
     response.status(500).json(ex);
@@ -185,7 +178,6 @@ app.post('/order-info', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-
   response.redirct('status');
   return;
 });
