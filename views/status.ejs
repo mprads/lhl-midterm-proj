@@ -12,9 +12,9 @@
     <% include partials/_header.ejs %>
 
     <div class="row">
-
-      <h4 class="col-sm-6 text-center">Customer Name:></h4>
-      <h4 class="col-sm-6 text-center">Customer Phone Number:></h4>
+      <% for (let i = 0; i < data.length; i++) { %>
+      <h4 class="col-sm-6 text-center">Customer Name: <%= data[i].cus_name %></h4>
+      <h4 class="col-sm-6 text-center">Customer Phone Number: <%= data[i].phone %></h4>
     </div>
 
     <div class="row">
@@ -29,7 +29,7 @@
           <th class="text-center">Order Status</th>
           <th class="text-center">Estimates</th>
         </tr>
-        <% for (let i = 0; i < data.length; i++) { %>
+
         <tr>
           <td class="text-center"> <%= data[i].id %></td>
           <td class="text-center">19.99</td>
