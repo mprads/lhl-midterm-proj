@@ -73,9 +73,9 @@ $(() => {
 
 
 
-   $(".cart-badge").on("click", function() {
+  $(".cart-badge").on("click", function() {
     $(".shopping-cart").fadeToggle( "fast");
-    });
+  });
 
   loadCart();
 });

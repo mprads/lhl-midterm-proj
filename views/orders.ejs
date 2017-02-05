@@ -1,55 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Register Your Info</title>
-    <% include partials/_metadata.ejs %>
-</head>
-<body>
-<!-- Top nav bar follows this line -->
-<header>
-  <% include partials/_header.ejs %>
-</header>
-<hr class="featurette-divider">
-
-  <main role="main" class="container-fluid">
-
-    <div class="row">
-
-      <table class="table table-striped">
-        <colgroup span="9"></colgroup>
-        <tr>
-          <th class="text-center">Order ID</th>
-          <th class="text-center">Customer Name</th>
-          <th class="text-center">Phone Number</th>
-          <th class="text-center">Order Amount</th>
-          <th class="text-center">Ordered at</th>
-          <th class="text-center">Estimates</th>
-          <th class="text-center">Status</th>
-          <th class="text-center">Text</th>
-          <th class="text-center"></th>
-        </tr>
-        <% for (let i = 0; i < data.length; i++) { %>
-        <tr>
-          <td class="text-center"><%=data[i].id%></th>
-          <td class="text-center"><%=data[i].cus_name%></th>
-          <td class="text-center"><%=data[i].phone%></th>
-          <td class="text-center">Order Value</th>
-          <td class="text-center"><%=data[i].phone%></th>
-          <td class="text-center">estimates</th>
-          <td class="text-center"><%=data[i].status_name%></th>
-          <form class="update-time" action="/order-status" method="post">
-            <td class="text-center"><textarea name="text" placeholder="How long till ready?"></textarea></th>
-            <td class="text-center"><button type="submit" class="btn btn-danger btn-sm">Update</button></th>
-          </form>
-        </tr>
-        <% } %>
-      </table>
-
-    </div>
-
-
-
-  </main>
+  <head>
+    <title>Register Your Info</title>
+      <% include partials/_metadata.ejs %>
+  </head>
+  <body>
+    <header>
+      <% include partials/_header.ejs %>
+    </header>
+    <hr class="featurette-divider">
+    <main role="main" class="container-fluid">
+      <div class="row">
+        <table class="table table-striped">
+          <colgroup span="9"></colgroup>
+          <tr>
+            <th class="text-center">Order ID</th>
+            <th class="text-center">Customer Name</th>
+            <th class="text-center">Phone Number</th>
+            <th class="text-center">Order Amount</th>
+            <th class="text-center">Ordered at</th>
+            <th class="text-center">Estimates</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Text</th>
+            <th class="text-center"></th>
+          </tr>
+          <% for (let i = 0; i < data.length; i++) { %>
+          <tr>
+            <td class="text-center"><%=data[i].id%></th>
+            <td class="text-center"><%=data[i].cus_name%></th>
+            <td class="text-center"><%=data[i].phone%></th>
+            <td class="text-center">Order Value</th>
+            <td class="text-center"><%=data[i].phone%></th>
+            <td class="text-center">estimates</th>
+            <td class="text-center"><%=data[i].status_name%></th>
+            <form class="update-time" action="/order-status" method="post">
+              <td class="text-center"><textarea name="text" placeholder="How long till ready?"></textarea></th>
+              <td class="text-center"><button type="submit" class="btn btn-danger btn-sm">Update</button></th>
+            </form>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+    </main>
     <% include partials/_footer.ejs %>
-</body>
+  </body>
 </html>

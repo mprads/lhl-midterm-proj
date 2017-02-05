@@ -36,11 +36,11 @@ app.use(cookieSession( {
 
 function groupBy(data, column) {
   return data.reduce((acc, i) => {
-    if(!acc[i[column]]) {  // if the resulting object doesn't have the thing we're grouping by -
-      acc[i[column]] = []; // make it
+    if(!acc[i[column]]) {
+      acc[i[column]] = [];
     }
-    acc[i[column]].push(i); // put the item into the bucket under the key we're grouping by
-    return acc; // return accumulator for the next iteration of reduce // mandatory
+    acc[i[column]].push(i);
+    return acc;
   }, {});
 }
 
@@ -212,17 +212,17 @@ function makeCall(name, order) {
 }
 
 function sendText(time) {
-const accountSid = process.env.accountSid;
-const authToken = process.env.authToken;
-const client = require('twilio')(accountSid, authToken);
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
+  const client = require('twilio')(accountSid, authToken);
 
-client.messages.create({
+  client.messages.create({
     to: "+16043652188",
     from: "+16043300743",
     body: "Your order will be ready in " + time +" mintues",
-}, function(err, message) {
+  }, function(err, message) {
     console.log(message.sid);
-});
+  });
 }
 
 
