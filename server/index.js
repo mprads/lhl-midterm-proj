@@ -162,9 +162,9 @@ app.post('/order-info', (request, response) => {
 function filterOrder(orderObj) {
   let strName = orderObj[0].cus_name;
   strName = strName.replace(" ", "");
-  let strOrder = '';
+  let strOrder = "";
   orderObj.forEach((obj) => {
-    strOrder += obj.name +"%20"
+    strOrder += obj.name.replace(" ", "%20");
     strOrder = strOrder.replace(" ", "%20");
   });
  makeCall(strName, strOrder);
@@ -172,9 +172,9 @@ function filterOrder(orderObj) {
 
 function makeCall(name, order) {
       const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
-      const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+      // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
       const client = require('twilio')(accountSid, authToken);
-
+      console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
       client.calls.create({
         url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
         to: "+16043652188",
