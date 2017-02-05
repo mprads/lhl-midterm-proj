@@ -30,7 +30,7 @@ $(() => {
     $body.append($name, $price);
     return $body;
   }
-  // Ajax post to add items to cart
+
   function renderItems(items) {
     items.forEach(item => {
       $('.shopping-cart-items').append(createItem(item));
@@ -41,38 +41,34 @@ $(() => {
     $.ajax({
       method: "GET",
       url: "/cart"
-    }).then((respose) => {
-      $("shopping-cart-items").empty();
-      renderCart(respose)
-    });
+      }).then((response) => {
+        $(".shopping-cart-items").empty();
+        renderItems(response)
+    })
   }
 
-  $(".pick-item").on("submit", (event) => {
-    event.preventDefault();
-    const data = $(event.currentTarget).serialize();
+  $(".deleter").on("click", function () {
+    const data = $(this).closest($("form")).find("input").val();
     $.ajax({
-      method: "POST",
-      url: "/cart",
+       method: "POST",
+      url: "/cart/delete/" + data,
       data: data
-    }).then((response) => {
+    }).then((data) => {
       loadCart();
     })
   });
 
-  // $("delete-from-cart").on("submit", (event) => {
-  //   event.preventDefault();
-  //   $.ajax({
-  //     method: "DELETE",
-  //     url: "/cart",
-  //     data: data
-  //   })
-  //   loadItems();
-  // });
-
-
-
-    //   $("shopping-cart-items").append(createItem(item));
-    // });
+  $(".pick-item").on("submit", function (event) {
+    event.preventDefault();
+    const data = $(this).serialize();
+    $.ajax({
+      method: "POST",
+      url: "/cart",
+      data: data
+    }).then((data) => {
+      loadCart();
+    })
+  });
 
   $('.features').on('click', function(event) {
     if($(this).find('.options').is(':animated')) {
@@ -87,4 +83,5 @@ $(() => {
     $(".shopping-cart").fadeToggle( "fast");
     });
 
+  loadCart();
 });

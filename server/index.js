@@ -56,14 +56,28 @@ app.post('/addcust', (request,response) => {
   return;
 })
 
-app.post('/cart', (request, response) =>{
+app.post('/cart/delete/:id', (request, response) => {
+  let order_id = request.session.order_id;
+  knex('line_items')
+  .where('item_id', request.params.id)
+  .del()
+  .then((data) => {
+    response.json(data);
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
+  return;
+});
+
+app.post('/cart', (request, response) => {
   let order_id = request.session.order_id;
   let food_id = request.body.food_id;
   knex('line_items')
-  .insert({'item_id': food_id[0], 'quantity': 1, 'order_id': order_id })
-  .returning('id')
+  .insert({'item_id': food_id, 'quantity': 1, 'order_id': order_id })
+  .returning('item_id')
   .then((data) => {
-    response.render('cart', data);
+    response.json(data);
   })
   .catch(ex => {
     response.status(500).json(ex);
@@ -79,7 +93,7 @@ app.get('/cart', (request, response) => {
   .select('items.name', 'items.price', 'line_items.quantity')
   .where('orders.id', order_id)
   .then((data) => {
-   response.render('cart', data);
+    response.json(data);
   })
   .catch(ex => {
     response.status(500).json(ex);
