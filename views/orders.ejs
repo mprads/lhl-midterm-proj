@@ -16,7 +16,7 @@
     <div class="row">
 
       <table class="table table-striped">
-        <colgroup span="8"></colgroup>
+        <colgroup span="9"></colgroup>
         <tr>
           <th class="text-center">Order ID</th>
           <th class="text-center">Customer Name</th>
@@ -25,6 +25,7 @@
           <th class="text-center">Ordered at</th>
           <th class="text-center">Estimates</th>
           <th class="text-center">Status</th>
+          <th class="text-center">Text</th>
           <th class="text-center"></th>
         </tr>
         <% for (let i = 0; i < data.length; i++) { %>
@@ -36,6 +37,7 @@
           <td class="text-center"><%=data[i].phone%></th>
           <td class="text-center">estimates</th>
           <td class="text-center"><%=data[i].status_name%></th>
+          <td class="text-center"><input type="textarea" name="text-msg"></th>
           <td class="text-center"><button type="button" class="btn btn-danger btn-sm">Update</button></th>
         </tr>
         <% } %>
