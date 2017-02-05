@@ -153,7 +153,22 @@ app.get('/status', (request, response) => {
 });
 
 app.get('/orders', (request, response) => {
-  response.render('orders');
+
+
+
+  knex('orders')
+  .join('line_items', 'orders.id', '=', 'line_items.order_id')
+  .join('items', 'line_items.item_id', '=', 'items.id')
+  .join('statuses', 'orders.status_id', '=', 'statuses.id')
+  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
+  .then((data) => {
+    console.log(data);
+
+    response.render('orders',{data: data});
+  })
+  .catch(ex => {
+    response.status(500).json(ex);
+  });
 });
 
 app.post('/order-info', (request, response) => {
