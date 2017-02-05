@@ -147,7 +147,6 @@ app.get('/status', (request, response) => {
   .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.created_at', 'statuses.status_name')
   .where('orders.id', order_id)
   .then((data) => {
-    console.log("data:", data);
     response.render('status', {data: data, moment: moment});
   })
 });
@@ -159,8 +158,6 @@ app.get('/orders', (request, response) => {
   .join('statuses', 'orders.status_id', '=', 'statuses.id')
   .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
   .then((data) => {
-    console.log(data);
-
     response.render('orders',{data: data});
   })
   .catch(ex => {
@@ -185,7 +182,6 @@ app.post('/order-info', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-
   response.redirct('status');
   return;
 });
@@ -202,8 +198,8 @@ function filterOrder(orderObj) {
 }
 
 function makeCall(name, order) {
-  const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
-  // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
   const client = require('twilio')(accountSid, authToken);
   console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
   client.calls.create({
@@ -214,6 +210,27 @@ function makeCall(name, order) {
     process.stdout.write(call.sid);
   });
 }
+
+function sendText(time) {
+const accountSid = process.env.accountSid;
+const authToken = process.env.authToken;
+const client = require('twilio')(accountSid, authToken);
+
+client.messages.create({
+    to: "+16043652188",
+    from: "+16043300743",
+    body: "Your order will be ready in " + time +" mintues",
+}, function(err, message) {
+    console.log(message.sid);
+});
+}
+
+
+app.post('/order-time/:id', (request, response) => {
+  let time = request.params.id;
+  sendText(time);
+  return;
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
