@@ -12,8 +12,9 @@
     <% include partials/_header.ejs %>
 
     <div class="row">
-      <h4 class="col-sm-6 text-center">Customer Name: <%= orders.cusname %></h4>
-      <h4 class="col-sm-6 text-center">Customer Phone Number: <%= orders.phone %></h4>
+
+      <h4 class="col-sm-6 text-center">Customer Name:></h4>
+      <h4 class="col-sm-6 text-center">Customer Phone Number:></h4>
     </div>
 
     <div class="row">
@@ -21,19 +22,25 @@
       <table class="table table-striped">
         <colgroup span="5"></colgroup>
         <tr>
+
           <th class="text-center">Order ID</th>
           <th class="text-center">Order Amount</th>
           <th class="text-center">Ordered At</th>
           <th class="text-center">Order Status</th>
           <th class="text-center">Estimates</th>
         </tr>
+        <% for (let i = 0; i < data.length; i++) { %>
         <tr>
-          <td class="text-center">1</th>
-          <td class="text-center">19.99</th>
-          <td class="text-center">time</th>
-          <td class="text-center">New</th>
-          <td class="text-center">0.5 hr</th>
+          <td class="text-center"> <%= data[i].id %></td>
+          <td class="text-center">19.99</td>
+          <td class="text-center"><%= moment(data[i].created_at).format('YYYY-MM-DD HH:mm:ss'); %></td>
+          <td class="text-center"><%= data[i].status_name %></td>
+          <td class="text-center">0.5 hr</td>
+
+
         </tr>
+        <% } %>
+
 
       </table>
 

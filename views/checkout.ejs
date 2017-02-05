@@ -6,7 +6,7 @@
 
 </head>
 
-<body>
+<body id="checkout">
 <header>
 <% include partials/_header.ejs %>
 </header>
@@ -64,8 +64,8 @@
           <p> </p>
         </div> -->
         <div class="col-sm-12 pull-right">
-          <form action="/neworder" method="post">
-            <button class="pull-right">Confirm Order</button>
+          <form class="confirm-order" action="/order-info" method="post">
+            <button type="submit" class="pull-right">Confirm Order</button>
           </form>
         </div>
       </div>

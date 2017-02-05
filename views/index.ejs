@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="styles/layout.css">
   <link rel="stylesheet" type="text/css" href="/styles/nav_bar.css">
 </head>
-<body>
+<body id="home">
 <!-- Top nav bar follows this line -->
 <header>
   <% include partials/_header.ejs %>
@@ -19,20 +19,15 @@
 <div class="shopping-cart hidden-md hidden-sm hidden-xs">
   <div class="shopping-cart-header">
     <i class="fa fa-shopping-cart cart-icon"></i>
-    <span class="badge">3</span>
+    <span class="badge"></span>
     <div class="shopping-cart-total">
       <span class="lighter-text">Total:</span>
       <span class="main-color-text">$2,229.97</span>
     </div>
   </div>
   <ul class="shopping-cart-items">
-    <li class="clearfix">
-      <span class="item-name">Burger</span>
-      <span class="item-price">$9.99</span>
-      <span class="item-quantity">Quantity: 01</span>
-    </li>
   </ul>
-  <a href="/register" class="checkout-button">Checkout</a>
+  <a href="/checkout" class="checkout-button">Checkout</a>
 </div>
 <hr class="featurette-divider">
 <main id="menu">
@@ -48,7 +43,7 @@
 
               <%}%>
                 <%for(let i = 0; i < food_types[type_id].length; i++) {
-                  const food = food_types[type_id][i];%>
+                  const food = food_types[type_id][i]%>
                   <form class="pick-item" action="/cart" method="post">
                     <section class="options">
                       <div class="row">
@@ -69,6 +64,7 @@
                               <span class="glyphicon glyphicon-plus"></span>
                               <%= '$' + food.price%>
                             </button>
+                            <span class="deleter">Delete</span>
                           </div>
                         </span>
                       </div>
@@ -84,9 +80,5 @@
   </main>
 
 <% include partials/_footer.ejs %>
-<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script type="text/javascript" src="/scripts/app.js"></script>
-<script type="text/javascript" src="/scripts/nav_bar.js"></script>
 </body>
 </html>

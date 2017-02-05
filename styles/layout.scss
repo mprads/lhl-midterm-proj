@@ -24,3 +24,11 @@ body {
 .food-desc .col {
   margin-bottom: 20px;
 }
+
+#register #bs-example-navbar-collapse-1 {
+  display: none !important;
+}
+
+#checkout #bs-example-navbar-collapse-1 {
+  display: none !important;
+}
