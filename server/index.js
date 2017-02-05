@@ -147,7 +147,6 @@ app.get('/status', (request, response) => {
   .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.created_at', 'statuses.status_name')
   .where('orders.id', order_id)
   .then((data) => {
-    console.log("data:", data);
     response.render('status', {data: data, moment: moment});
   })
 });
@@ -170,6 +169,8 @@ app.post('/order-info', (request, response) => {
   .catch(ex => {
       response.status(500).json(ex);
   });
+});
+
 app.post('/checkout', (request, response) => {
 
   response.redirct('status');
