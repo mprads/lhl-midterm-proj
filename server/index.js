@@ -42,7 +42,7 @@ function groupBy(data, column) {
   }, {});
 }
 
-app.post('/addcust', (request,response) => {
+app.post('/register/addcust', (request,response) => {
   knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
   .returning('id')
   .into('orders')
@@ -134,6 +134,13 @@ app.get('/checkout', (request, response) => {
   });
 });
 
+app.get('/status', (request, response) => {
+  response.render('status');
+});
+
+app.get('/orders', (request, response) => {
+  response.render('orders');
+});
 
 app.post('/order-info', (request, response) => {
   let order_id = request.session.order_id;
@@ -149,10 +156,6 @@ app.post('/order-info', (request, response) => {
       response.status(500).json(ex);
   });
   return;
-});
-
-app.get('/status', (request, response) => {
-  response.render('status');
 });
 
 app.listen(PORT, () => {
