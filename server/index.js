@@ -127,7 +127,6 @@ app.get('/checkout', (request, response) => {
   .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
   .where('orders.id', order_id)
   .then((data) => {
-    console.log(data);
     response.render('checkout', {data: data});
     })
   .catch(ex => {
@@ -136,8 +135,19 @@ app.get('/checkout', (request, response) => {
 });
 
 
-app.post('/checkout', (request, response) => {
-  response.redirct('status');
+app.post('/order-info', (request, response) => {
+  let order_id = request.session.order_id;
+  knex('orders')
+  .join('line_items', 'orders.id', 'line_items.order_id')
+  .join('items', 'line_items.item_id', 'items.id')
+  .select('orders.cus_name', 'orders.phone', 'orders.status_id', 'line_items.quantity', 'items.name', 'items.price')
+  .where('orders.id', order_id)
+  .then((data) => {
+    response.render('status', {data: data});
+    })
+  .catch(ex => {
+      response.status(500).json(ex);
+  });
   return;
 });
 
