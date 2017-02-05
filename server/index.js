@@ -123,13 +123,17 @@ app.get('/register', (request, response) => {
 
 app.get('/checkout', (request, response) => {
   let order_id = request.session.order_id;
+  if (!order_id || order_id.length === 0) {
+    response.redirect('/');
+    return;
+  }
   knex('orders')
   .join('line_items', 'orders.id', 'line_items.order_id')
   .join('items', 'line_items.item_id', 'items.id')
   .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
   .where('orders.id', order_id)
   .then((data) => {
-    response.render('checkout', {data: data});
+      response.render('checkout', {data: data});
     })
   .catch(ex => {
       response.status(500).json(ex);
@@ -166,6 +170,9 @@ app.post('/order-info', (request, response) => {
   .catch(ex => {
       response.status(500).json(ex);
   });
+app.post('/checkout', (request, response) => {
+
+  response.redirct('status');
   return;
 });
 
