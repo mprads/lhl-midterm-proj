@@ -42,13 +42,13 @@ function groupBy(data, column) {
   }, {});
 }
 
-app.post('/addcust', (request,response) => {
-  knex.insert({'cus_name': request.body.Name, 'phone': request.body.Phone, 'status_id': 1})
+app.post('/register/addcust', (request,response) => {
+  knex.insert({'cus_name': request.body.fullname, 'phone': request.body.phone, 'status_id': 1})
   .returning('id')
   .into('orders')
   .then((data) => {
     request.session.order_id = data[0];
-    response.redirect('/');
+    response.redirect('/checkout');
   })
   .catch(ex => {
     response.status(500).json(ex);
@@ -86,7 +86,13 @@ app.get('/', (request, response) => {
 });
 
 app.get('/register', (request, response) => {
-  response.render('register');
+  let order_id = request.session.order_id;
+
+  let data = {
+    orderid: order_id;
+  }
+
+  response.render('register', data);
 });
 
 app.get('/checkout', (request, response) => {

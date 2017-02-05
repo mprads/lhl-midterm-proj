@@ -4,37 +4,45 @@
   <title>Register Your Info</title>
     <% include partials/_metadata.ejs %>
 </head>
-<body>
+<body id="register">
 <!-- Top nav bar follows this line -->
   <header>
 
   <% include partials/_header.ejs %>
 
   </header>
-    <hr class="featurette-divider">
+  <hr class="featurette-divider">
   <main role="main" class="container-fluid">
-    <h3>Register Your Info</h3>
-      <form method="post" action ="/register/addcust" class="form-horizontal">
-        <div class="form-group">
-          <label for="username-field" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="username-field" placeholder="Full Name" name="Your Name">
+    <div class="row">
+      <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <h3>Register Your Info</h3>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <form method="post" action="/register/addcust" class="form-horizontal">
+            <div class="form-group">
+              <label for="fullname" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                  <input class="form-control" id="username-field" placeholder="Full Name" name="fullname">
+                </div>
             </div>
-
+        <div class="form-group">
+          <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="phone-field" placeholder="gimme yo digits" type="text" name="phone">
+            </div>
         </div>
         <div class="form-group">
-          <label for="phone-field" class="col-sm-2 col-form-label">Phone Number</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="phone-field" placeholder="gimme yo digits" type="tel" name="Phone Number">
-            </div>
-        </div>
-          <div class="form-group">
-            <div class="col-sm-12">
-              <button class="btn btn-primary pull-right">Checkout</button>
-            </div>
+          <div class="col-sm-12">
+            <button class="btn btn-primary pull-right">Checkout</button>
           </div>
-      </form>
-
+        </div>
+          </form>
+        </div>
+    </div>
   </main>
     <% include partials/_footer.ejs %>
 </body>
