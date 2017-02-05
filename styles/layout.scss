@@ -2,7 +2,7 @@
 
 .container-fluid .jumbotron{
   position: relative;
-  padding-left: 60px;
+  padding-left: 20px;
   border: 2px solid;
 }
 
@@ -12,5 +12,14 @@ body {
 }
 
 .options {
+  padding-left: 30px;
   display: none;
+}
+
+.food-name .col {
+  line-height: 0;
+}
+
+.food-desc .col {
+  margin-bottom: 20px;
 }
