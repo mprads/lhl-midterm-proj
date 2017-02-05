@@ -6,26 +6,24 @@
 </head>
 <body>
 <!-- Top nav bar follows this line -->
-  <header>
 
   <% include partials/_header.ejs %>
 
-  </header>
     <hr class="featurette-divider">
   <main role="main" class="container-fluid">
     <h3>Register Your Info</h3>
       <form method="post" action ="/register/addcust" class="form-horizontal">
         <div class="form-group">
-          <label for="username-field" class="col-sm-2 col-form-label">Name</label>
+          <label for="fullname" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
-              <input class="form-control" id="username-field" placeholder="Full Name" name="Your Name">
+              <input class="form-control" id="username-field" type="text" name="fullname" placeholder="Full Name" >
             </div>
 
         </div>
         <div class="form-group">
-          <label for="phone-field" class="col-sm-2 col-form-label">Phone Number</label>
+          <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
             <div class="col-sm-10">
-              <input class="form-control" id="phone-field" placeholder="gimme yo digits" type="tel" name="Phone Number">
+              <input class="form-control" id="phone-field" type="text" name="phone" placeholder="Gimme yo Digits" >
             </div>
         </div>
           <div class="form-group">
