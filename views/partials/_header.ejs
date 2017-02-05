@@ -1,30 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-2 row-centered">
+      <img class="icon" src="images/logo-image-3.png">
+    </div>
+    <div class="col-md-4 restaurant-title">
+      <div class="navbar-header">
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand">Diner</a>
-        </div>
-          <p class="text-right">
-            <button type="button" class="btn btn-default navbar-btn">Create New Order</button>
-            <button type="button" class="btn btn-default navbar-btn">My Order</button>
-          </p>
+        <a class="navbar-brand" href="/"><h2>Foghorn's Southern Diner</h2></a>
       </div>
-    </nav>
-  </head>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="col-md-3"></div>
+    <div class="col-md-3">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <span class="cart-badge">
+         <i class="fa fa-shopping-cart"></i>Cart
+         <span class="badge"></span>
+        </span>
 
-  <body>
-  </body>
-</html>
+        <form action="/register" method="get">
+          <button type="submit" class="btn btn-outline-primary reg-badge">Register</button>
+        </form>
 
-
-
-
-
+      </div>
+      </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>

@@ -1,63 +1,87 @@
 $(() => {
 
-    const appsMenu = knex.SELECT(*).FROM("items").WHERE()
-    const mainsMenu = knex.SELECT(*).FROM("items")
-    const drinksMenu = knex.SELECT(*).FROM("items")
-    const dessertsMenu = knex.SELECT(*).FROM("items")
-
-  $("confirm-order").on("submit", (event) => {
-    // twillio magic
-    // set order status to new
-  });
-
-  $("create-order").on("submit", (event) => {
-      event.preventDefault();
-  // creates order id row and adds order-id to cookie
-  });
-
-  $("menu").on("submit", (event) => {
-    event.preventDefault();
-    // if item doesnt exist
-    $.ajax({
-      method: "POST",
-      url: "/carts",
-      data: data
-    })
-    loadItems();
-    // if item does exist
-    $.ajax({
-      method: "PUT",
-      url: "/carts",
-      data: data
-    })
-    loadItems();
-  });
-
-  $("delete-from-cart").on("submit", (event) => {
-    event.preventDefault();
-    $.ajax({
-      method: "DELETE",
-      url: "/carts",
-      data: data
-    })
-    loadItems();
-  });
-
-  // Ajax post to add items to cart
-  function renderItems(items) {
-    item.forEach(items => {
-      $("#cart").append(createItem(item));
+  $("#cart").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
     });
+
+
+  // $("confirm-order").on("submit", (event) => {
+
+  //   function makeCall() { var accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
+  //     var authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+  //     var client = require('twilio')(accountSid, authToken);
+
+  //     client.calls.create({
+  //       url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21" + name + "has ordered" + order,
+  //       to: "+16043652188",
+  //       from: " +16043300743"
+  //     }, function(err, call) {
+  //       process.stdout.write(call.sid);
+  //     });
+  //   }
+  //   makeCall(order.cus_name, order);
+  // });
+
+  function createItem(itemObj) {
+    const $name = $('<span>').text(itemObj.name).addClass('.item-name');
+    const $price = $('<span>').text(itemObj.price).addClass('.item-price');
+    const $quantity = $('<span>').text(itemObj.quantity).addClass('.item-quantity');
+    let $body = $('<li>');
+    $body.append($name, $price);
+    return $body;
+  }
+
+  function renderItems(items) {
+    items.forEach(item => {
+      $('.shopping-cart-items').append(createItem(item));
+    })
   }
 
   function loadCart () {
     $.ajax({
       method: "GET",
-      url: "/carts"
-    }).then((respose) => {
-      $("#cart").empty();
-      renderCart(respose)
-    });
+      url: "/cart"
+      }).then((response) => {
+        $(".shopping-cart-items").empty();
+        renderItems(response)
+    })
   }
+
+  $(".deleter").on("click", function () {
+    const data = $(this).closest($("form")).find("input").val();
+    $.ajax({
+       method: "POST",
+      url: "/cart/delete/" + data,
+      data: data
+    }).then((data) => {
+      loadCart();
+    })
+  });
+
+  $(".pick-item").on("submit", function (event) {
+    event.preventDefault();
+    const data = $(this).serialize();
+    $.ajax({
+      method: "POST",
+      url: "/cart",
+      data: data
+    }).then((data) => {
+      loadCart();
+    })
+  });
+
+  $('.features').on('click', function(event) {
+    if($(this).find('.options').is(':animated')) {
+      return false;
+    }
+    $(this).closest($('.container-fluid')).find('.options').slideToggle('slow')
+  });
+
+
+
+   $(".cart-badge").on("click", function() {
+    $(".shopping-cart").fadeToggle( "fast");
+    });
+
   loadCart();
 });

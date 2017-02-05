@@ -1,39 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <title>Order For Pick Up</title>
-  <link rel="stylesheet" href="../vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
-  <!-- Import Bootstrap API-->
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <script type="text/javascript" src="../vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="../scripts/app.js"></script>
+  <link rel="stylesheet" href="../vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="styles/layout.css">
+  <link rel="stylesheet" type="text/css" href="/styles/nav_bar.css">
 </head>
 <body>
 <!-- Top nav bar follows this line -->
 <header>
- <% include partials/_header.ejs %>
+  <% include partials/_header.ejs %>
 </header>
-
 <!-- Menu items here -->
-  <main id="menu">
-      <form action="/cart" method="post">
-        <section class="appy">Greets
-          <p>food name</p><input type="text">
-        </section>
-        <section class="main">Eats
-          <p>food name</p><input type="text">
-        </section>
-        <section class="dessert">Treats
-          <p>food name</p><input type="text">
-        </section>
-        <section class="drink">Sips
-          <p>drink name</p><input type="text">
-        </section>
-      </form>
+<div class="shopping-cart">
+  <div class="shopping-cart-header">
+    <i class="fa fa-shopping-cart cart-icon"></i>
+    <span class="badge"></span>
+    <div class="shopping-cart-total">
+      <span class="lighter-text">Total:</span>
+      <span class="main-color-text">$2,229.97</span>
+    </div>
+  </div>
+  <ul class="shopping-cart-items">
+  </ul>
+  <a href="/checkout" class="checkout-button">Checkout</a>
+</div>
+<hr class="featurette-divider">
+<main id="menu">
+    <% for(let type_id in food_types) { %>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2"></div>
+            <div class="jumbotron">
+              <% for(let e = 0; e < 1; e ++) {%>
+                <h1 class="features"><%=food_types[type_id][e].type_name%></h1>
+              <%}%>
+                <%for(let i = 0; i < food_types[type_id].length; i++) {
+                  const food = food_types[type_id][i]%>
+                  <form class="pick-item" action="/cart" method="post">
+                    <section class="options">
+                      <input type="hidden" value="<%=food.id%>" name="food_id">
+                      <span class="food-name"><%=food.name%></span>
+                      <span class="food-desc"><%=food.description%></span>
+                      <span class="food-price"><%=food.price%></span>
+                      <button type="submit">Add</button>
+                      <span class="deleter">Delete</span>
+                    </section>
+                  </form>
+                <%} %>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+      </div>
+    <% } %>
   </main>
-  hello
 
+<% include partials/_footer.ejs %>
+<script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/scripts/app.js"></script>
+<script type="text/javascript" src="/scripts/nav_bar.js"></script>
 </body>
 </html>
