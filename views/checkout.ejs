@@ -26,13 +26,12 @@
         <th class="text-center">Unit Price</th>
         <th class="text-center">Amount</th>
       </tr>
-        <%for(let i = 0; i < data.length; i++) {
-        const choice = data[i];%>
+        <%for(let i = 0; i < data.length; i++) { %>
       <tr>
-        <td><%=choice.name%></td>
-        <td class="text-center"><%=choice.quantity%></td>
-        <td class="text-center"><%=choice.price%></td>
-        <td class="text-center">SUM</td>
+        <td><%=data[i].name%></td>
+        <td class="text-center"><%=data[i].quantity%></td>
+        <td class="text-center"><%=data[i].price%></td>
+        <td class="text-center"><%=data[i].line_amount%></td>
       </tr>
       <%}%>
       <tr>
@@ -44,20 +43,8 @@
       <tr>
         <td></td>
         <td></td>
-        <td class="text-center">Subtotal</td>
-        <td class="text-center">SUM</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td class="text-center">Tax</td>
-        <td class="text-center">SUM</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
         <td class="text-center">Total</td>
-        <td class="text-center">SUM</td>
+        <td class="text-center"><%=data[0].order_total%></td>
       </tr>
     </table>
     <div class="container-fluid">
@@ -66,7 +53,7 @@
           <p> </p>
         </div> -->
         <div class="col-sm-12 pull-right">
-          <form class="confirm-order" action="/order-info" method="post">
+          <form class="confirm-order" action="/status" method="get">
             <button type="submit" class="pull-right">Confirm Order</button>
           </form>
         </div>
