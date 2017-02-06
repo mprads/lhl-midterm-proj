@@ -146,6 +146,10 @@ body {
   display: none !important;
 }
 
+.orders #bs-example-navbar-collapse-1 {
+  display: none !important;
+}
+
 .features {
   text-align: center;
 }
