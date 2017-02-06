@@ -1,5 +1,5 @@
 /* Collapsing Navbar Styles */
-
+@import url('https://fonts.googleapis.com/css?family=Rancho|Wellfleet');
 @media(min-width:768px) {
   .navbar-default {
     -webkit-transition: all .35s;
@@ -10,16 +10,21 @@
   }
 
   .restaurant-title {
+    font-family: 'Wellfleet', sans-serif;
     font-size: large;
     line-height: 10px;
+
   }
 
   img {
-    width: 50%;
+    border: 2px solid !important;
+    border-color: #6d6561;
+    border-radius: 6px;
     line-height: 10%;
-
+    width: 50%;
     .row-centered{
       text-align: centered;
+
     }
   }
 
@@ -46,5 +51,6 @@
     /* Add additional styles here for the COLLAPSED state */
   }
 }
+
 
 

@@ -30,24 +30,22 @@
         </tr>
         <% for (let i = 0; i < data.length; i++) { %>
         <tr>
-          <td class="text-center"><%=data[i].id%></th>
-          <td class="text-center"><%=data[i].cus_name%></th>
-          <td class="text-center"><%=data[i].phone%></th>
-          <td class="text-center">Order Value</th>
-          <td class="text-center"><%=data[i].phone%></th>
-          <td class="text-center">estimates</th>
-          <td class="text-center"><%=data[i].status_name%></th>
-          <td class="text-center"><input type="textarea" name="text-msg"></th>
-          <td class="text-center"><button type="button" class="btn btn-danger btn-sm">Update</button></th>
+          <td class="text-center"><%=data[i].id%></td>
+          <td class="text-center"><%=data[i].cus_name%></td>
+          <td class="text-center"><%=data[i].phone%></td>
+          <td class="text-center"><%=data[i].order_total%></td>
+          <td class="text-center"><%=moment(data[i].created_at).format('YYYY-MM-DD HH:mm:ss');%></td>
+          <td class="text-center">??</td>
+          <td class="text-center"><%=data[i].status_name%></td>
+          <td class="text-center"><input type="textarea" name="text-msg"></td>
+          <td class="text-center"><button type="button" class="btn btn-danger btn-xs">Update</button></td>
         </tr>
         <% } %>
       </table>
 
     </div>
-
-
-
   </main>
+
     <% include partials/_footer.ejs %>
-</body>
+  </body>
 </html>

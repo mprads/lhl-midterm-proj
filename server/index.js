@@ -36,11 +36,11 @@ app.use(cookieSession( {
 
 function groupBy(data, column) {
   return data.reduce((acc, i) => {
-    if(!acc[i[column]]) {  // if the resulting object doesn't have the thing we're grouping by -
-      acc[i[column]] = []; // make it
+    if(!acc[i[column]]) {
+      acc[i[column]] = [];
     }
-    acc[i[column]].push(i); // put the item into the bucket under the key we're grouping by
-    return acc; // return accumulator for the next iteration of reduce // mandatory
+    acc[i[column]].push(i);
+    return acc;
   }, {});
 }
 
@@ -159,15 +159,9 @@ app.get('/status', (request, response) => {
 });
 
 app.get('/orders', (request, response) => {
-  knex('orders')
-  .join('line_items', 'orders.id', '=', 'line_items.order_id')
-  .join('items', 'line_items.item_id', '=', 'items.id')
-  .join('statuses', 'orders.status_id', '=', 'statuses.id')
-  .select('orders.id', 'orders.cus_name', 'orders.phone', 'orders.status_id', 'statuses.status_name' ,'line_items.quantity', 'items.price', knex.raw('line_items.quantity*items.price as line_total'))
+  knex.raw('SELECT orders.id, orders.cus_name, orders.phone, orders.created_at, orders.status_id, statuses.status_name, order_total.order_total FROM orders JOIN (SELECT line_items.order_id, SUM(line_items.quantity*items.price) AS order_total FROM line_items JOIN items ON line_items.item_id = items.id GROUP BY line_items.order_id) AS order_total ON orders.id = order_total.order_id JOIN statuses ON orders.status_id = statuses.id ORDER BY orders.id')
   .then((data) => {
-    console.log(data);
-
-    response.render('orders',{data: data});
+    response.render('orders', {data: data.rows, moment: moment});
   })
   .catch(ex => {
     response.status(500).json(ex);
@@ -191,8 +185,7 @@ app.post('/order-info', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-
-  response.redirct('status');
+  response.redirct('/status');
   return;
 });
 
@@ -203,13 +196,14 @@ function filterOrder(orderObj) {
   orderObj.forEach((obj) => {
     strOrder += obj.name.replace(" ", "%20");
     strOrder = strOrder.replace(" ", "%20");
+    strOrder = strOrder.replace(" ", "%20");
   });
  makeCall(strName, strOrder);
 }
 
 function makeCall(name, order) {
-  const accountSid = 'ACe70042067db440f9bbe6ae7e23ae8cc9';
-  // const authToken = '4120723cbaf4c52b3cdea769f87bf39f';
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
   const client = require('twilio')(accountSid, authToken);
   console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
   client.calls.create({
@@ -220,6 +214,27 @@ function makeCall(name, order) {
     process.stdout.write(call.sid);
   });
 }
+
+function sendText(time) {
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
+  const client = require('twilio')(accountSid, authToken);
+
+  client.messages.create({
+    to: "+16043652188",
+    from: "+16043300743",
+    body: "Your order will be ready in " + time +" mintues",
+  }, function(err, message) {
+    console.log(message.sid);
+  });
+}
+
+
+app.post('/order-time/:id', (request, response) => {
+  let time = request.params.id;
+  sendText(time);
+  return;
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
