@@ -96,11 +96,12 @@ app.post('/cart', (request, response) => {
 
 app.get('/cart', (request, response) => {
   let order_id = request.session.order_id;
-  knex('orders')
-  .join('line_items', 'orders.id', 'line_items.order_id')
-  .join('items', 'line_items.item_id', 'items.id')
-  .select('items.name', 'items.price', 'line_items.quantity')
-  .where('orders.id', order_id)
+  // knex('orders')
+  // .join('line_items', 'orders.id', 'line_items.order_id')
+  // .join('items', 'line_items.item_id', 'items.id')
+  // .select('items.name', 'items.price', 'line_items.quantity')
+  // .where('orders.id', order_id)
+  knex.raw(`SELECT orders.id FROM orders JOIN (SELECT line_items.order_id, line_items.item_id, line_items.quantity) FROM line_items ON line_items.order_id = order_id JOIN (SELECT items.price, items.name, items.id, SUM(line_items.quantity*items.price) AS order_total) ON line_items.item_id = items.id WHERE orders.id = ${order_id}`)
   .then((data) => {
     response.json(data);
   })

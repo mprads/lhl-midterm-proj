@@ -5,7 +5,7 @@ $(() => {
     });
 
   function createItem(itemObj) {
-    const $name = $('<span>').text(itemObj.name).addClass('.item-name');
+    const $name = $('<span>').text(itemObj.rows[rows.length-1].name).addClass('.item-name');
     const $price = $('<span>').text(itemObj.price).addClass('.item-price');
     const $quantity = $('<span>').text(itemObj.quantity).addClass('.item-quantity');
     let $body = $('<li>');
