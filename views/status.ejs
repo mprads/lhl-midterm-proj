@@ -7,9 +7,11 @@
 </head>
 <body>
 
+
   <main class="container-fluid">
 
     <% include partials/_header.ejs %>
+  <hr class="featurette-divider">
 
     <div class="row">
       <% for (let i = 0; i < data.length; i++) { %>
@@ -35,7 +37,7 @@
           <td class="text-center"><%=data[i].order_total%></td>
           <td class="text-center"><%= moment(data[i].created_at).format('YYYY-MM-DD HH:mm:ss'); %></td>
           <td class="text-center"><%= data[i].status_name %></td>
-          <td class="text-center">0.5 hr</td>
+          <td class="text-center"><%= data[i].estimates %></td>
 
 
         </tr>
