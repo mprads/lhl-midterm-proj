@@ -189,7 +189,7 @@ app.post('/order-info', (request, response) => {
   .where('orders.id', order_id)
   .then((data) => {
     filterOrder(data);
-    response.redirct('/status');
+    response.redirect('/status');
     })
   .catch(ex => {
       response.status(500).json(ex);
@@ -247,7 +247,7 @@ app.post('/order-time/:id', (request, response) => {
   })
   .then((data) => {
     sendText(time);
-    response.redirct('/orders');
+    response.redirect('/orders');
   })
   .catch(ex => {
       response.status(500).json(ex);
