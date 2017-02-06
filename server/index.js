@@ -199,6 +199,7 @@ app.post('/order-info', (request, response) => {
 function filterOrder(orderObj) {
   let strName = orderObj[0].cus_name;
   strName = strName.replace(" ", "");
+  strName = strName.replace(" ", "%20");
   let strOrder = "";
   orderObj.forEach((obj) => {
     strOrder += obj.name.replace(" ", "%20");
