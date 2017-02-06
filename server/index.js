@@ -174,7 +174,7 @@ app.post('/order-info', (request, response) => {
   .where('orders.id', order_id)
   .then((data) => {
     filterOrder(data);
-    response.json(data);
+    response.redirct('/orders');
     })
   .catch(ex => {
       response.status(500).json(ex);
@@ -182,7 +182,7 @@ app.post('/order-info', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-  response.redirct('status');
+  response.redirct('/status');
   return;
 });
 
@@ -231,6 +231,7 @@ app.post('/order-time/:id', (request, response) => {
   let time = request.params.id;
   sendText(time);
   return;
+  response.redirect('/orders')
 });
 
 app.listen(PORT, () => {
