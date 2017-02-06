@@ -29,7 +29,7 @@ $(() => {
     })
   }
 
-  $(".update-time").on("submit", function (event) {
+  $(".update-time").on("click", function (event) {
     event.preventDefault();
     const data = $("textarea").val();
     $.ajax({

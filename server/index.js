@@ -130,11 +130,6 @@ app.get('/checkout', (request, response) => {
     response.redirect('/');
     return;
   }
-  // knex('orders')
-  // .join('line_items', 'orders.id', 'line_items.order_id')
-  // .join('items', 'line_items.item_id', 'items.id')
-  // .select('orders.cus_name', 'orders.phone', 'line_items.quantity', 'items.name', 'items.price')
-  // .where('orders.id', order_id)
   knex.raw(`SELECT orders.id, cart_items.item_id, cart_items.name, cart_items.quantity, cart_items.price, cart_items.line_amount ,orders.cus_name, orders.phone, orders.created_at, orders.estimates, orders.status_id, statuses.status_name, order_total.order_total FROM orders
 JOIN (SELECT line_items.order_id, SUM(line_items.quantity*items.price) AS order_total
 FROM line_items
@@ -175,7 +170,6 @@ app.get('/statuslist', (request, response) => {
   })
 });
 
-
 app.get('/orders', (request, response) => {
   knex.raw('SELECT orders.id, orders.cus_name, orders.phone, orders.created_at, orders.estimates, orders.status_id, statuses.status_name, order_total.order_total FROM orders JOIN (SELECT line_items.order_id, SUM(line_items.quantity*items.price) AS order_total FROM line_items JOIN items ON line_items.item_id = items.id GROUP BY line_items.order_id) AS order_total ON orders.id = order_total.order_id JOIN statuses ON orders.status_id = statuses.id ORDER BY orders.id')
   .then((data) => {
@@ -202,11 +196,6 @@ app.post('/order-info', (request, response) => {
   });
 });
 
-app.post('/checkout', (request, response) => {
-  response.redirct('/status');
-  return;
-});
-
 function filterOrder(orderObj) {
   let strName = orderObj[0].cus_name;
   strName = strName.replace(" ", "");
@@ -219,40 +208,50 @@ function filterOrder(orderObj) {
  makeCall(strName, strOrder);
 }
 
-// function makeCall(name, order) {
-//   const accountSid = process.env.accountSid;
-//   const authToken = process.env.authToken;
-//   const client = require('twilio')(accountSid, authToken);
-//   console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
-//   client.calls.create({
-//     url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
-//     to: "+16043652188",
-//     from: " +16043300743"
-//   }, function(err, call) {
-//     process.stdout.write(call.sid);
-//   });
-// }
+function makeCall(name, order) {
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
+  const client = require('twilio')(accountSid, authToken);
+  console.log("https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order)
+  client.calls.create({
+    url: "https://handler.twilio.com/twiml/EH3e38ad92be2e80bd73ba50b586b1fe21?Name=" + name + "&Order=" + order,
+    to: "+16043652188",
+    from: " +16043300743"
+  }, function(err, call) {
+    process.stdout.write(call.sid);
+  });
+}
 
-// function sendText(time) {
-//   const accountSid = process.env.accountSid;
-//   const authToken = process.env.authToken;
-//   const client = require('twilio')(accountSid, authToken);
+function sendText(time) {
+  const accountSid = process.env.accountSid;
+  const authToken = process.env.authToken;
+  const client = require('twilio')(accountSid, authToken);
 
-//   client.messages.create({
-//     to: "+16043652188",
-//     from: "+16043300743",
-//     body: "Your order will be ready in " + time +" mintues",
-//   }, function(err, message) {
-//     console.log(message.sid);
-//   });
-// }
-
+  client.messages.create({
+    to: "+16043652188",
+    from: "+16043300743",
+    body: "Your order will be ready in " + time +" mintues",
+  }, function(err, message) {
+    console.log(message.sid);
+  });
+}
 
 app.post('/order-time/:id', (request, response) => {
   let time = request.params.id;
-  sendText(time);
-  return;
-  response.redirect('/orders')
+  let order_id = request.session.order_id;
+  knex('orders')
+  .where('id', order_id)
+  .update({
+    estimates: time,
+    status_id: 2
+  })
+  .then((data) => {
+    sendText(time);
+    response.redirct('/orders');
+  })
+  .catch(ex => {
+      response.status(500).json(ex);
+  });
 });
 
 app.listen(PORT, () => {
