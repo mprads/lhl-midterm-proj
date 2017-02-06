@@ -9,12 +9,13 @@
 <header>
   <% include partials/_header.ejs %>
 </header>
+<!-- <hr class="featurette-divider"> -->
 
   <main role="main" class="container-fluid">
     <div class="row">
       <div class="col-md-2"></div>
         <div class="col-md-8">
-          <h3>Register Your Info</h3>
+          <h3>Who you is?</h3>
         </div>
     </div>
     <div class="row">
@@ -23,18 +24,23 @@
           <form method="post" action="/register/addcust" class="form-horizontal">
             <div class="form-group">
               <label for="fullname" class="col-sm-2 col-form-label">Name</label>
-                <div class="col-sm-10">
-                  <input class="form-control" id="username-field" type="text" placeholder="Full Name" name="Name">
+                <div class="col-md-8">
+                    <input type="text" placeholder="First name" class="first-name" name="first_name">
+                    <input type="text" placeholder="Last name" class="last-name" name="last_name">
                 </div>
             </div>
         <div class="form-group">
-          <label for="phone" class="col-sm-2 col-form-label">Phone Number</label>
-            <div class="col-sm-10">
-              <input class="form-control" id="phone-field" type="text" name="Phone" placeholder="Gimme yo Digits" >
+          <label for="phone" class="col-sm-2 col-form-label">Give us yer digits</label>
+            <div class="col-sm-8">
+                <input type="text" name="Phone1" class="phone-1" placeholder="(area code)" maxlength="3">
+                <input type="text" name="Phone2" class="phone-2" placeholder="xxx" maxlength="3">
+                <input type="text" name="Phone3" class="phone-3" placeholder="xxxx" maxlength="4">
+              </div>
             </div>
         </div>
+      </div>
           <div class="form-group">
-            <div class="col-sm-12">
+            <div class="col-sm-4">
               <button class="btn btn-primary pull-right">Ready to Order</button>
             </div>
           </div>
