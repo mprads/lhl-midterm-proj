@@ -9,12 +9,12 @@
     /* Add additional styles here for the UNCOLLAPSED state */
   }
   .restaurant-title {
-    font-family: 'Wellfleet', sans-serif !important;
+    font-family: 'Wellfleet', sans-serif;
     font-size: large;
     line-height: 10px;
   }
   img {
-    border: 2px solid;
+    border: 2px solid !important;
     border-color: #6d6561;
     border-radius: 6px;
     line-height: 10%;

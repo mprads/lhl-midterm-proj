@@ -178,7 +178,7 @@ app.post('/order-info', (request, response) => {
 });
 
 app.post('/checkout', (request, response) => {
-  response.redirct('status');
+  response.redirct('/status');
   return;
 });
 
