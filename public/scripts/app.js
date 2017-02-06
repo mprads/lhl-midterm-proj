@@ -9,7 +9,7 @@ $(() => {
     const $price = $('<span>').text(itemObj.price).addClass('.item-price');
     const $quantity = $('<span>').text(itemObj.quantity).addClass('.item-quantity');
     let $body = $('<li>');
-    $body.append($name, $price);
+    $body.append($name, $('<br>'), $price);
     return $body;
   }
 
