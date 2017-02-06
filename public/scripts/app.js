@@ -65,13 +65,20 @@ $(() => {
   });
 
   $('.features').on('click', function(event) {
-    if($(this).find('.options').is(':animated')) {
+    const $this = $(this).closest($('.container-fluid'));
+    if($this.find('.options').is(':animated')) {
       return false;
     }
-    $(this).closest($('.container-fluid')).find('.options').slideToggle('slow')
+    $this.find('.options').slideToggle('slow')
   });
 
-
+  $('.jumbotron').on('mouseenter', function(){
+    const $this = $(this);
+    $this.css('opacity', '1');
+  }).on('mouseleave', function(){
+    const $this = $(this);
+    $this.css('opacity', '0.5');
+  })
 
   $(".cart-badge").on("click", function() {
     $(".shopping-cart").fadeToggle( "fast");

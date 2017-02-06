@@ -9,3 +9,5 @@ $('[src="images/logo-image-3.png"]').click(function() {
     window.location.href = "/";
     return false;
 });
+
+

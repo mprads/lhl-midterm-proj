@@ -109,17 +109,22 @@
   border: 2px solid;
   border-color: #6d6561;
   background: #eeebe6;
+  opacity: 0.5;
+}
+
+.options {
+  padding-left: 30px;
+  display: none;
+}
+
+.jumbotron:hover {
+  border-color: #e48866;
 }
 
 body {
   padding-top: 100px;
   padding-bottom: 80px;
   overflow: scroll;
-}
-
-.options {
-  padding-left: 30px;
-  display: none;
 }
 
 .food-name .col {
@@ -135,6 +140,10 @@ body {
 }
 
 #checkout #bs-example-navbar-collapse-1 {
+  display: none !important;
+}
+
+.orders #bs-example-navbar-collapse-1{
   display: none !important;
 }
 

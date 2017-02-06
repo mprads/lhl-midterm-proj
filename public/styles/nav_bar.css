@@ -23,13 +23,16 @@
   img .row-centered {
     text-align: centered;
   }
+  img:hover {
+    border-color: #e48866 !important;
+    opacity: 0.9;
+  }
   h2 {
     line-height: 30%;
   }
   .reg-badge {
     background-color: #6394F8;
     margin-right: 8px;
-    /*  margin-bottom: 5px;*/
     border-radius: 10px;
     color: white;
     display: inline-block;
@@ -43,5 +46,22 @@
   .navbar-default.affix {
     padding: 0;
     /* Add additional styles here for the COLLAPSED state */
+  }
+  #mainNav {
+    border-bottom-color: #df521f;
+    border-bottom-width: thin;
+  }
+  .fa-shopping-cart {
+    padding-right: 5px;
+  }
+  .cart-badge {
+    width: 26%;
+    line-height: 1.6em;
+  }
+  .cart-badge:hover {
+    color: black;
+  }
+  .collapse {
+    margin-top: 18px;
   }
 }
