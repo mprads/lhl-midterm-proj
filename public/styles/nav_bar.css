@@ -29,6 +29,10 @@
   }
   h2 {
     line-height: 30%;
+    color: black;
+  }
+  h2:hover {
+    -webkit-text-stroke: 1px #e48866;
   }
   .reg-badge {
     background-color: #6394F8;
@@ -62,6 +66,6 @@
     color: black;
   }
   .collapse {
-    margin-top: 18px;
+    margin-top: 20px;
   }
 }

@@ -13,7 +13,6 @@
     font-family: 'Wellfleet', sans-serif;
     font-size: large;
     line-height: 10px;
-
   }
 
   img {
@@ -35,6 +34,11 @@
 
   h2 {
     line-height: 30%;
+    color: black;
+  }
+
+  h2:hover {
+    -webkit-text-stroke: 1px #e48866;
   }
 
   .reg-badge {

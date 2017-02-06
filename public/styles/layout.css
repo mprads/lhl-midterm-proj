@@ -109,7 +109,6 @@
   border: 2px solid;
   border-color: #6d6561;
   background: #eeebe6;
-  opacity: 0.5;
 }
 
 .options {
@@ -143,7 +142,7 @@ body {
   display: none !important;
 }
 
-.orders #bs-example-navbar-collapse-1{
+.status #bs-example-navbar-collapse-1 {
   display: none !important;
 }
 
