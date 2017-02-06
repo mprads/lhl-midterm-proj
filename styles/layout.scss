@@ -4,6 +4,8 @@
   position: relative;
   padding-left: 20px;
   border: 2px solid;
+  border-color: #6d6561;
+  background: #eeebe6;
 }
 
 body {
@@ -31,4 +33,8 @@ body {
 
 #checkout #bs-example-navbar-collapse-1 {
   display: none !important;
+}
+
+.features {
+  text-align: center;
 }
