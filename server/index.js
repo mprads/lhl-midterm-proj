@@ -45,10 +45,6 @@ function groupBy(data, column) {
 }
 
 app.post('/register/addcust', (request,response) => {
-  // if(requst.body.Phone){
-
-  // }
-  // console.log("Phone number", request.body.Phone1, request.body.Phone2, request.body.Phone3);
   const phone = "(" + request.body.Phone1 + ")" + request.body.Phone2 + "-" + request.body.Phone3;
   const name = request.body.first_name + " " + request.body.last_name;
 
@@ -199,7 +195,7 @@ app.post('/order-info', (request, response) => {
   .where('orders.id', order_id)
   .then((data) => {
     filterOrder(data);
-    response.redirct('/orders');
+    response.redirct('/status');
     })
   .catch(ex => {
       response.status(500).json(ex);
